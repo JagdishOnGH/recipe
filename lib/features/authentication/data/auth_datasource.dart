@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:recipe_app/constants/urls.dart';
-import 'package:recipe_app/features/authentication/data/token_storage.dart';
 
 import '../models/register_user_model.dart';
 
@@ -26,10 +25,8 @@ class RestAuthDatasource implements AuthDatasource {
       'password': password,
     };
     final request = await _dio.post(LOGIN_URL, data: payload);
-    final token = request.data?["accessToken"];
-
-    final TokenStorage tokenStorage = TokenStorage();
-    await tokenStorage.saveToken(token);
+    final token = request.data['token'];
+    //TODO save token.
     return token;
   }
 
