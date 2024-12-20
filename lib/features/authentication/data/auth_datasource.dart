@@ -25,7 +25,7 @@ class RestAuthDatasource implements AuthDatasource {
       'password': password,
     };
     final request = await _dio.post(LOGIN_URL, data: payload);
-    final token = request.data['token'];
+    final token = request.data?['accessToken'] ?? "Dummy token";
     //TODO save token.
     return token;
   }
