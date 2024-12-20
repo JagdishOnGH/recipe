@@ -5,11 +5,11 @@ import 'package:recipe_app/features/authentication/data/auth_datasource.dart';
 import 'package:recipe_app/features/authentication/repository/auth_repository.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-  setupGetIt();
-  group("Auth-Module", () {
-    final dio = getItInit<Dio>();
+  // TestWidgetsFlutterBinding.ensureInitialized();
 
+  group("Auth-Module", () {
+    setupGetIt();
+    final dio = getItInit<Dio>();
     late AuthRepository authRepository;
     late AuthDatasource authDatasource;
     setUp(() {
