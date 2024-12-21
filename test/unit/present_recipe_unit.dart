@@ -11,7 +11,7 @@ void main() {
   group("Present Recipi", () {
     setupGetIt();
     final dio = getItInit<Dio>();
-    late RecipeRepository recipeRepository;
+    late RestRecipeRepository recipeRepository;
     late RecipeDatasource recipeDatasource;
     setUp(() {
       recipeDatasource = RestRecipeDatasource(dio);
