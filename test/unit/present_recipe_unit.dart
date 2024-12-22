@@ -10,7 +10,7 @@ void main() {
 
   group("Present Recipi", () {
     setupGetIt();
-    final dio = getItInit<Dio>();
+    final dio = sl<Dio>();
     late RestRecipeRepository recipeRepository;
     late RecipeDatasource recipeDatasource;
     setUp(() {
