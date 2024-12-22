@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/extensions/on_num.dart';
+import 'package:recipe_app/routes/auto_route_setup.gr.dart';
 
 @RoutePage()
 class LoginPage extends StatelessWidget {
@@ -51,7 +52,7 @@ class LoginPage extends StatelessWidget {
               height: 50,
               child: FilledButton(
                 onPressed: () {
-                  // context.router.push(OnboardingRoute());
+                  context.router.push(HomeRoute());
                 },
                 child: Text('Login'),
               ),
