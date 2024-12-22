@@ -9,7 +9,7 @@ void main() {
 
   group("Auth-Module", () {
     setupGetIt();
-    final dio = getItInit<Dio>();
+    final dio = sl<Dio>();
     late AuthRepository authRepository;
     late AuthDatasource authDatasource;
     setUp(() {
