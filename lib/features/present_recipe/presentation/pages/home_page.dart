@@ -1,23 +1,33 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 
-@RoutePage()
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+import '../../models/recipe_model.dart';
+import '../riverpod/present_recipe_rp.dart';
 
+@RoutePage()
+class HomePage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final recipeList = ref.watch(presentRecipeRpProvider);
     return Scaffold(
         body: SafeArea(
-      child: ListView(
-        padding: EdgeInsets.only(left: 10, right: 10),
-        children: [DemoWidget(context), DemoWidget(context)],
-      ),
-    ));
+            child: recipeList.when(
+                data: (data) {
+                  if (!data.hasData) return Text("No Data Found");
+                  final actualData = data.data!;
+                  return ListView.builder(
+                      itemCount: actualData.recipes.length,
+                      itemBuilder: (context, index) {
+                        return DemoWidget(context, actualData.recipes[index]);
+                      });
+                },
+                error: (e, s) => Text(e.toString()),
+                loading: () => Center(child: CircularProgressIndicator()))));
   }
 
-  Widget DemoWidget(BuildContext context) {
+  Widget DemoWidget(BuildContext context, Recipe recipe) {
     final theme = Theme.of(context);
     final ts = theme.textTheme;
     return Container(
@@ -29,24 +39,26 @@ class HomePage extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 20),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            ),
-            child: Image.network(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              child: Image.network(
+                recipe.image,
                 width: 400,
                 height: 200,
                 fit: BoxFit.cover,
-                'https://static.vecteezy.com/system/resources/previews/036/499/568/non_2x/snack-mini-pizza-with-sausages-tomato-and-cheese-on-a-wooden-board-top-and-vertical-view-photo.jpg'),
-          ),
+              )),
           10.ht,
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconAndInfo(Icons.timer_sharp, '30 min'),
-              IconAndInfo(Icons.local_fire_department_outlined, '200 cal'),
-              IconAndInfo(Icons.dinner_dining, '1 serving'),
+              IconAndInfo(Icons.timer_sharp,
+                  recipe.cookTimeMinutes.toString() + ' min'),
+              IconAndInfo(Icons.local_fire_department_outlined,
+                  '${recipe.caloriesPerServing} cal'),
+              IconAndInfo(Icons.dinner_dining, '${recipe.servings} Servings'),
             ],
           ),
           10.ht,
@@ -55,7 +67,7 @@ class HomePage extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  """Aloo Tikki """,
+                  """${recipe.name}""",
                   style: ts.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
