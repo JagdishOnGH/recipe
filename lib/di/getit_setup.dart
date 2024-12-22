@@ -3,7 +3,10 @@ import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:recipe_app/constants/urls.dart';
 
-final getItInit = GetIt.instance;
+import '../features/present_recipe/data/recipe_datasource.dart';
+import '../features/present_recipe/repository/recipe_repository.dart';
+
+final sl = GetIt.instance;
 
 void setupGetIt() {
   // getItInit.registerSingletonAsync(() async {
@@ -11,7 +14,7 @@ void setupGetIt() {
   //   return prefs;
   // });
 //dio
-  getItInit.registerLazySingleton<Dio>(() => Dio(
+  sl.registerLazySingleton<Dio>(() => Dio(
         BaseOptions(
           baseUrl: BASE_URL,
         ),
@@ -24,4 +27,8 @@ void setupGetIt() {
           error: true,
           compact: true,
           maxWidth: 90)));
+
+  sl.registerSingleton<RecipeDatasource>(RestRecipeDatasource(sl<Dio>()));
+  sl.registerLazySingleton<RestRecipeRepository>(
+      () => RestRecipeRepository(sl()));
 }
