@@ -18,6 +18,6 @@ class RestRecipeDatasource implements RecipeDatasource {
     final request = await _dio.get(RECIPE_URL);
     final RecipeList convertedResponse = RecipeList.fromJson(request.data);
 
-    return convertedResponse.recipes;
+    return convertedResponse;
   }
 }
