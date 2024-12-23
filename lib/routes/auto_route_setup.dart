@@ -8,6 +8,7 @@ class AutoRouteSetup extends RootStackRouter {
         AutoRoute(page: LoginRoute.page, path: "/login"),
         AutoRoute(
             page: OnboardingRoute.page, path: "/onboarding", initial: true),
-        AutoRoute(page: HomeRoute.page, path: "/home")
+        AutoRoute(page: HomeRoute.page, path: "/home"),
+        AutoRoute(page: RecipeDetailRoute.page, path: "/recipe-detail")
       ];
 }
