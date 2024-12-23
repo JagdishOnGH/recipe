@@ -31,13 +31,18 @@ class HomePage extends ConsumerWidget {
     final theme = Theme.of(context);
     final ts = theme.textTheme;
     return Container(
-        padding: EdgeInsets.only(left: 5, right: 5),
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.shade200),
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25), topRight: Radius.circular(30))),
-        margin: EdgeInsets.symmetric(vertical: 20),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade200),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(30),
+        ),
+      ),
+      margin: const EdgeInsets.symmetric(vertical: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
           ClipRRect(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30),
