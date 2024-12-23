@@ -44,47 +44,80 @@ class HomePage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
-              child: Image.network(
-                recipe.image,
-                width: 400,
-                height: 200,
-                fit: BoxFit.cover,
-              )),
-          10.ht,
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconAndInfo(Icons.timer_sharp,
-                  recipe.cookTimeMinutes.toString() + ' min'),
-              IconAndInfo(Icons.local_fire_department_outlined,
-                  '${recipe.caloriesPerServing} cal'),
-              IconAndInfo(Icons.dinner_dining, '${recipe.servings} Servings'),
-            ],
-          ),
-          10.ht,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Text(
-                  """${recipe.name}""",
-                  style: ts.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+            child: Stack(
+              children: [
+                Image.network(
+                  recipe.image,
+                  width: 400,
+                  height: 400,
+                  fit: BoxFit.cover,
                 ),
-              ),
-              //IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
-              InkWell(
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Added to Favourites')));
-                },
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 20,
+                SizedBox(
+                  height: 400,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.max,
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                        child: Container(
+                          color: Colors.white.withOpacity(0.8),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    context.router.push(
+                                        RecipeDetailRoute(recipe: recipe));
+                                  },
+                                  child: Text(
+                                    recipe.name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: ts.titleLarge
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.favorite_border),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        color: Colors.white.withOpacity(0.7),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconAndInfo(
+                              Icons.timer_sharp,
+                              '${recipe.cookTimeMinutes} min',
+                            ),
+                            IconAndInfo(
+                              Icons.local_fire_department_outlined,
+                              '${recipe.caloriesPerServing} cal',
+                            ),
+                            IconAndInfo(
+                              Icons.dinner_dining,
+                              '${recipe.servings} Servings',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],
