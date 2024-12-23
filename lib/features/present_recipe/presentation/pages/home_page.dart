@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_app/extensions/on_num.dart';
 
+import '../../../../routes/auto_route_setup.gr.dart';
 import '../../models/recipe_model.dart';
 import '../riverpod/present_recipe_rp.dart';
 
@@ -119,18 +119,14 @@ class HomePage extends ConsumerWidget {
                     ],
                   ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
-          5.ht,
-          // 20.ht,
-          // SizedBox(
-          //     height: 50,
-          //     width: double.infinity,
-          //     child: OutlinedButton(
-          //         onPressed: () {}, child: Text('Start Cooking..')))
-        ]));
+        ],
+      ),
+    );
   }
+}
 
 Widget IconAndInfo(IconData icon, String text) {
   return Builder(builder: (context) {
