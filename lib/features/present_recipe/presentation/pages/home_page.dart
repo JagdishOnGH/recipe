@@ -12,6 +12,16 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final recipeList = ref.watch(presentRecipeRpProvider);
     return Scaffold(
+        appBar: AppBar(
+          title: const Text("Recipes"),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.router.push(SearchRecipeRoute());
+                },
+                icon: const Icon(Icons.search))
+          ],
+        ),
         body: SafeArea(
             child: recipeList.when(
                 data: (data) {
@@ -52,7 +62,7 @@ class HomePage extends ConsumerWidget {
               children: [
                 Image.network(
                   recipe.image,
-                  width: 400,
+                  width: 700,
                   height: 400,
                   fit: BoxFit.cover,
                 ),
