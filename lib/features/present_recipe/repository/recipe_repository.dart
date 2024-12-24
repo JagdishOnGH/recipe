@@ -1,3 +1,5 @@
+import 'package:recipe_app/features/present_recipe/models/recipe_model.dart';
+
 import '../data/recipe_datasource.dart';
 
 // abstract class RecipeRepository {
@@ -11,7 +13,13 @@ class RestRecipeRepository {
 
   RestRecipeRepository(this._recipeDatasource);
 
-  Future getRecipes({int limit = 10, int offset = 1}) async {
-    return _recipeDatasource.getRecipes(limit: limit, offset: offset);
+  Future<RecipeList> getRecipes({int limit = 10, int offset = 1}) async {
+    return await _recipeDatasource.getRecipes(limit: limit, offset: offset);
+  }
+
+  Future<RecipeList> searchRecipes(String query,
+      {int limit = 10, int offset = 1}) async {
+    return await _recipeDatasource.searchRecipes(query,
+        limit: limit, offset: offset);
   }
 }
