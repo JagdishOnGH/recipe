@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/routes/auto_route_setup.dart';
 import 'package:recipe_app/themes/button_theme.dart';
+import 'package:recipe_app/themes/chip_theme.dart';
 
 import 'di/getit_setup.dart';
 
@@ -22,6 +23,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        chipTheme: chipThemeData,
         outlinedButtonTheme: outlinedButtonThemeData,
         elevatedButtonTheme: elevatedButtonThemeData,
         filledButtonTheme: filledButtonThemeData,
