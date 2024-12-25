@@ -13,8 +13,23 @@ void main() {
   runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
-  final _appRouter = AutoRouteSetup();
+class MyApp extends ConsumerStatefulWidget {
+  @override
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  late AutoRouteSetup _appRouter;
+
+  @override
+  void initState() {
+    _appRouter = AutoRouteSetup(
+      context: context,
+      ref: ref,
+    );
+
+    super.initState();
+  }
 
   // This widget is the root of your application.
   @override
