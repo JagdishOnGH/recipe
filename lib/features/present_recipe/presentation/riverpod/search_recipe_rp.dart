@@ -17,7 +17,6 @@ class SearchRecipeRp extends AsyncNotifier<PlaceHolder<RecipeList>> {
 
   void searchRecipes(String query, {int limit = 10, int offset = 1}) async {
     try {
-      //AsyncValue.loading();
       state = AsyncLoading();
       final result = await recipeRepository.searchRecipes(query,
           limit: limit, offset: offset);
