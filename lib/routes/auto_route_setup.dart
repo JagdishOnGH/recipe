@@ -25,6 +25,5 @@ class AutoRouteSetup extends RootStackRouter {
       ];
 
   @override
-  // TODO: implement guards
   List<AutoRouteGuard> get guards => [];
 }
