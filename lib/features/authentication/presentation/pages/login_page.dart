@@ -1,14 +1,49 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
-import 'package:recipe_app/routes/auto_route_setup.gr.dart';
+
+import '../riverpod/authentication_rp.dart';
 
 @RoutePage()
-class LoginPage extends StatelessWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
+  ConsumerState<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends ConsumerState<LoginPage> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final watchAuthentication = ref.watch(authenticationRpProvider);
+    ref.listen(authenticationRpProvider, (prev, curr) {
+      print("prev $prev and curr $curr");
+      if (curr is AsyncLoading) {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CircularProgressIndicator(),
+                      10.ht,
+                      Text('Please wait...'),
+                    ],
+                  ),
+                ));
+      }
+    });
     final theme = Theme.of(context);
     final ts = Theme.of(context).textTheme;
     return Scaffold(
@@ -27,13 +62,15 @@ class LoginPage extends StatelessWidget {
             100.ht,
             TextField(
               decoration: InputDecoration(
-                hintText: 'Enter Email',
-                labelText: 'Email',
+                hintText: 'Enter Username',
+                labelText: 'Username',
                 border: OutlineInputBorder(),
               ),
             ),
             30.ht,
             TextField(
+              obscureText: true,
+              keyboardType: TextInputType.name,
               decoration: InputDecoration(
                 hintText: 'Enter Password',
                 labelText: 'Password',
@@ -52,7 +89,8 @@ class LoginPage extends StatelessWidget {
               height: 50,
               child: FilledButton(
                 onPressed: () {
-                  context.router.push(HomeRoute());
+                  ref.read(authenticationRpProvider.notifier).login(
+                      _usernameController.text, _passwordController.text);
                 },
                 child: Text('Login'),
               ),
