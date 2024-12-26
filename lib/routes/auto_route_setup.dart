@@ -27,3 +27,14 @@ class AutoRouteSetup extends RootStackRouter {
   @override
   List<AutoRouteGuard> get guards => [];
 }
+
+class AuthRouteGuard extends AutoRouteGuard {
+  final WidgetRef ref;
+
+  AuthRouteGuard({required this.ref});
+
+  @override
+  void onNavigation(NavigationResolver resolver, StackRouter router) async {
+    resolver.next(true);
+  }
+}
