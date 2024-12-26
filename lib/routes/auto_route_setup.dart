@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/routes/auto_route_setup.gr.dart';
 
+import '../features/present_recipe/presentation/riverpod/present_recipe_rp.dart';
+
 @AutoRouterConfig()
 class AutoRouteSetup extends RootStackRouter {
   final WidgetRef ref;
@@ -16,9 +18,9 @@ class AutoRouteSetup extends RootStackRouter {
         AutoRoute(
             page: OnboardingRoute.page, path: "/onboarding", initial: true),
         AutoRoute(
-          page: HomeRoute.page,
-          path: "/home",
-        ),
+            page: HomeRoute.page,
+            path: "/home",
+            guards: [AuthRouteGuard(ref: ref, context: context)]),
         AutoRoute(page: RecipeDetailRoute.page, path: "/recipe-detail"),
         AutoRoute(page: SearchRecipeRoute.page, path: "/search-recipe"),
         AutoRoute(page: LoginReminderRoute.page, path: "/login-reminder"),
@@ -29,12 +31,31 @@ class AutoRouteSetup extends RootStackRouter {
 }
 
 class AuthRouteGuard extends AutoRouteGuard {
+  BuildContext context;
   final WidgetRef ref;
 
-  AuthRouteGuard({required this.ref});
+  AuthRouteGuard({required this.ref, required this.context});
 
   @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) async {
-    resolver.next(true);
+  Future<void> onNavigation(
+      NavigationResolver resolver, StackRouter router) async {
+    final result = ref.read(presentRecipeRpProvider);
+
+    if (!result.isLoading && (result.hasValue && result.value!.data != null)) {
+      resolver.next(true);
+    } else {
+      // Get the context dynamically
+      final context1 = router.navigatorKey.currentContext;
+
+      if (context1 != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Something went wrong")),
+        );
+      }
+
+      resolver.next(false);
+    }
   }
 }
+
+void abc([bool a = true]) {}
