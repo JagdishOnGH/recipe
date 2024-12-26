@@ -27,4 +27,13 @@ class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
       return PlaceHolder();
     });
   }
+
+  void logout() async {
+    state = AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await _authRepository.logout();
+      await _tokenStoreRepository.deleteToken();
+      return PlaceHolder();
+    });
+  }
 }
