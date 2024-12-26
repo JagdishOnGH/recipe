@@ -31,20 +31,15 @@ class RestAuthDatasource implements AuthDatasource {
   }
 
   @override
-  Future<void> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
-  }
+  Future<void> logout() async {}
 
   @override
   Future<void> register(RegisterUserModel registerUserModel) {
-    // TODO: implement register
     throw UnimplementedError();
   }
 
   @override
   Future<void> resetPassword(String email) {
-    // TODO: implement resetPassword
     throw UnimplementedError();
   }
 }
