@@ -21,19 +21,38 @@ class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
 
   void login(String username, String password) async {
     state = AsyncLoading();
+    if (!_usernamePasswordValidator(username, password)) {
+      state = AsyncError('Invalid username or password', StackTrace.empty);
+      return;
+    }
     state = await AsyncValue.guard(() async {
       final token = await _authRepository.login(username, password);
       await _tokenStoreRepository.saveToken(token);
-      return PlaceHolder();
+      return PlaceHolder(data: token);
     });
   }
 
   void logout() async {
     state = AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await _authRepository.logout();
+      // await _authRepository.logout();
       await _tokenStoreRepository.deleteToken();
       return PlaceHolder();
     });
   }
+
+  bool _usernamePasswordValidator(String username, String password) {
+    //username should be 6 characters long alphanumeric only not special characters
+    //password should be 8 characters long with at least one special character
+    //return true if valid else false
+    if (RegExp(r'^[a-zA-Z0-9]{6}$').hasMatch(username) &&
+        RegExp(r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$')
+            .hasMatch(password)) return true;
+    return false;
+  }
 }
+
+final authenticationRpProvider =
+    AsyncNotifierProvider<AuthenticationRp, PlaceHolder<String>>(
+  () => AuthenticationRp(),
+);
