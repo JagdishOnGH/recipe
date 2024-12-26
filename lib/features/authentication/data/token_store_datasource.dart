@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class TokenStorage {
+abstract class TokenStoreDatasource {
   Future<void> saveToken(String token);
 
   Future<String?> getToken();
@@ -8,7 +8,7 @@ abstract class TokenStorage {
   Future<void> clearToken();
 }
 
-class SharedPrefTokenStorage implements TokenStorage {
+class SharedPrefTokenStorage implements TokenStoreDatasource {
   final SharedPreferences _prefs;
 
   const SharedPrefTokenStorage(this._prefs);
