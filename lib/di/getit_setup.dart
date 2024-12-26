@@ -3,9 +3,11 @@ import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:recipe_app/constants/urls.dart';
 import 'package:recipe_app/features/authentication/data/token_store_datasource.dart';
+import 'package:recipe_app/features/authentication/repository/auth_repository.dart';
 import 'package:recipe_app/features/authentication/repository/token_store_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../features/authentication/data/auth_datasource.dart';
 import '../features/present_recipe/data/recipe_datasource.dart';
 import '../features/present_recipe/repository/recipe_repository.dart';
 
@@ -41,5 +43,7 @@ void setupGetIt() {
   sl.registerLazySingleton<TokenStoreDatasource>(
       () => SharedPrefTokenStorage(sl<SharedPreferences>()));
   sl.registerLazySingleton<TokenStoreRepository>(
-      () => TokenStoreRepository(sl<SharedPrefTokenStorage>()));
+      () => TokenStoreRepository(sl()));
+  sl.registerSingleton<AuthDatasource>(RestAuthDatasource(sl<Dio>()));
+  sl.registerSingleton<AuthRepository>(AuthRepository(sl<AuthDatasource>()));
 }
