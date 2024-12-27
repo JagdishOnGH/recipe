@@ -18,9 +18,9 @@ class AutoRouteSetup extends RootStackRouter {
         AutoRoute(
             page: OnboardingRoute.page, path: "/onboarding", initial: true),
         AutoRoute(
-            page: HomeRoute.page,
-            path: "/home",
-            guards: [AuthRouteGuard(ref: ref, context: context)]),
+          page: HomeRoute.page,
+          path: "/home",
+        ),
         AutoRoute(page: RecipeDetailRoute.page, path: "/recipe-detail"),
         AutoRoute(page: SearchRecipeRoute.page, path: "/search-recipe"),
         AutoRoute(page: LoginReminderRoute.page, path: "/login-reminder"),
