@@ -29,7 +29,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final watchAuthentication = ref.watch(authenticationRpProvider);
+    // final watchAuthentication = ref.watch(authenticationRpProvider);
     ref.listen(authenticationRpProvider, (prev, curr) {
       print("prev $prev and curr $curr");
       if (curr is AsyncLoading) {
