@@ -29,11 +29,6 @@ class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
     } on Exception catch (e) {
       state = AsyncError(e, StackTrace.empty);
     }
-    state = await AsyncValue.guard(() async {
-      final token = await _authRepository.login(username, password);
-      await _tokenStoreRepository.saveToken(token);
-      return PlaceHolder(data: token);
-    });
   }
 
   void logout() async {
