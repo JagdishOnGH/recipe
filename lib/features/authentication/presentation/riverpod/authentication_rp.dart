@@ -41,14 +41,18 @@ class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
     });
   }
 
-  bool _usernamePasswordValidator(String username, String password) {
+  Future<void> _usernamePasswordValidator(
+      String username, String password) async {
+    await Future.delayed(Duration(seconds: 2));
     //username should be 6 characters long alphanumeric only not special characters
     //password should be 8 characters long with at least one special character
     //return true if valid else false
-    if (RegExp(r'^[a-zA-Z0-9]{6}$').hasMatch(username) &&
-        RegExp(r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$')
-            .hasMatch(password)) return true;
-    return false;
+    if (RegExp(r'^[a-zA-Z0-9]{6,15}$').hasMatch(username) &&
+        RegExp(r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,16}$')
+            .hasMatch(password)) {
+      return;
+    }
+    throw Exception("Invalid username or password");
   }
 }
 
