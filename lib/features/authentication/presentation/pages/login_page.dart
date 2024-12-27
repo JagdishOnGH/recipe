@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
+import 'package:recipe_app/features/present_recipe/presentation/riverpod/present_recipe_rp.dart';
 
 import '../riverpod/authentication_rp.dart';
 
@@ -16,6 +17,7 @@ class LoginPage extends ConsumerStatefulWidget {
 class _LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isDialogOpen = false;
 
   @override
   void dispose() {
@@ -42,6 +44,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ],
                   ),
                 ));
+      } else if (prev is AsyncLoading &&
+          (curr is AsyncError || curr is AsyncData)) {
+        Navigator.of(context).pop();
+        isDialogOpen = false;
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(curr.error.toString()),
+        ));
       }
     });
     final theme = Theme.of(context);
@@ -104,7 +114,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 Text("Don't have an account?"),
                 TextButton(
                   onPressed: () {
-                    // context.router.push(OnboardingRoute());
+                    ref.invalidate(presentRecipeRpProvider);
                   },
                   child: Text('Sign Up'),
                 ),
