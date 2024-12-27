@@ -16,6 +16,7 @@ class LoginPage extends ConsumerStatefulWidget {
 
 class _LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
   bool isDialogOpen = false;
 
@@ -32,6 +33,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     ref.listen(authenticationRpProvider, (prev, curr) {
       print("prev $prev and curr $curr");
       if (curr is AsyncLoading) {
+        isDialogOpen = true;
         showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -44,14 +46,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ],
                   ),
                 ));
-      } else if (prev is AsyncLoading &&
+      } else if ((prev is AsyncLoading && prev != null) &&
           (curr is AsyncError || curr is AsyncData)) {
-        Navigator.of(context).pop();
-        isDialogOpen = false;
+        if (curr is AsyncError) {
+          if (isDialogOpen) {
+            Navigator.of(context).pop();
+          }
+          isDialogOpen = false;
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(curr.error.toString()),
-        ));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(curr.error.toString() + "I am from login page"),
+          ));
+        }
       }
     });
     final theme = Theme.of(context);
@@ -71,6 +77,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             Text("Welcome Back !", style: ts.titleLarge),
             100.ht,
             TextField(
+              enableSuggestions: true,
               decoration: InputDecoration(
                 hintText: 'Enter Username',
                 labelText: 'Username',
