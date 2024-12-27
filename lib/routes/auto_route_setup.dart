@@ -28,32 +28,32 @@ class AutoRouteSetup extends RootStackRouter {
   List<AutoRouteGuard> get guards => [];
 }
 
-class AuthRouteGuard extends AutoRouteGuard {
-  BuildContext context;
-  final WidgetRef ref;
-
-  AuthRouteGuard({required this.ref, required this.context});
-
-  @override
-  Future<void> onNavigation(
-      NavigationResolver resolver, StackRouter router) async {
-    final result = ref.read(presentRecipeRpProvider);
-
-    if (!result.isLoading && (result.hasValue && result.value!.data != null)) {
-      resolver.next(true);
-    } else {
-      // Get the context dynamically
-      final context1 = router.navigatorKey.currentContext;
-
-      if (context1 != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Something went wrong")),
-        );
-      }
-
-      resolver.next(false);
-    }
-  }
-}
+// class AuthRouteGuard extends AutoRouteGuard {
+//   BuildContext context;
+//   final WidgetRef ref;
+//
+//   AuthRouteGuard({required this.ref, required this.context});
+//
+//   @override
+//   Future<void> onNavigation(
+//       NavigationResolver resolver, StackRouter router) async {
+//     final result = ref.read(presentRecipeRpProvider);
+//
+//     if (!result.isLoading && (result.hasValue && result.value!.data != null)) {
+//       resolver.next(true);
+//     } else {
+//       // Get the context dynamically
+//       final context1 = router.navigatorKey.currentContext;
+//
+//       if (context1 != null) {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(content: Text("Something went wrong")),
+//         );
+//       }
+//
+//       resolver.next(false);
+//     }
+//   }
+// }
 
 void abc([bool a = true]) {}
