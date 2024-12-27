@@ -21,9 +21,13 @@ class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
 
   void login(String username, String password) async {
     state = AsyncLoading();
-    if (!_usernamePasswordValidator(username, password)) {
-      state = AsyncError('Invalid username or password', StackTrace.empty);
-      return;
+    try {
+      await _usernamePasswordValidator(username, password);
+      final token = await _authRepository.login(username, password);
+      await _tokenStoreRepository.saveToken(token);
+      state = AsyncData(PlaceHolder(data: token));
+    } on Exception catch (e) {
+      state = AsyncError(e, StackTrace.empty);
     }
     state = await AsyncValue.guard(() async {
       final token = await _authRepository.login(username, password);
