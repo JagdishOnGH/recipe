@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/routes/auto_route_setup.gr.dart';
 
-import '../features/present_recipe/presentation/riverpod/present_recipe_rp.dart';
-
 @AutoRouterConfig()
 class AutoRouteSetup extends RootStackRouter {
   final WidgetRef ref;
