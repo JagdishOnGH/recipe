@@ -82,7 +82,7 @@ class OnboardingPage extends StatelessWidget {
                 height: 50,
                 child: TextButton(
                   onPressed: () {
-                    //context.router.push(HomeRoute());
+                    context.router.push(HomeRoute());
                   },
                   child: Text('Continue as a Guest'),
                 ),
