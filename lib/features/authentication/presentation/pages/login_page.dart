@@ -152,3 +152,5 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ));
   }
 }
+
+StateProvider<bool> passwordHideShowProvider = StateProvider((ref) => true);
