@@ -51,15 +51,23 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ));
       } else if ((prev is AsyncLoading && prev != null) &&
           (curr is AsyncError || curr is AsyncData)) {
-        if (curr is AsyncError) {
-          if (isDialogOpen) {
-            Navigator.of(context).pop();
-          }
+        if (isDialogOpen) {
+          context.maybePop();
           isDialogOpen = false;
-
+        }
+        if (curr is AsyncError) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(curr.error.toString() + "I am from login page"),
+            content: Text(curr.error.toString()),
           ));
+        }
+        if (curr is AsyncData) {
+          if ((curr as AsyncData).value.hasData == true) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('Login Successful: ${curr.value!.data!}'),
+            ));
+            context.router.popUntil((route) => route.isFirst);
+            context.replaceRoute(HomeRoute());
+          }
         }
       }
     });
