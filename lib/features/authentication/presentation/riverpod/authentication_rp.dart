@@ -48,12 +48,46 @@ class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
     //username should be 6 characters long alphanumeric only not special characters
     //password should be 8 characters long with at least one special character
     //return true if valid else false
-    if (RegExp(r'^[a-zA-Z0-9]{6,15}$').hasMatch(username) &&
-        RegExp(r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,16}$')
-            .hasMatch(password)) {
-      return;
+
+    username = username.trim();
+
+    // Check length
+    if (username.length < 6 || username.length > 15) {
+      throw Exception("Username must be 6-15 characters long.");
     }
-    throw Exception("Invalid username or password");
+
+    // Check that the first character is a letter
+    if (!RegExp(r'^[a-zA-Z]').hasMatch(username)) {
+      throw Exception("Username must start with a letter.");
+    }
+
+    // Check for invalid characters
+    if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(username)) {
+      throw Exception(
+          "Username can only contain letters and optional numbers (no special characters).");
+    }
+    if (!RegExp(r'^[a-zA-Z0-9]{6,15}$').hasMatch(username.trim())) {
+      throw Exception(
+          "Username should be minimum 6 letter  long alphanumeric only not special characters");
+    }
+    if (password.length < 8 || password.length > 16) {
+      throw Exception("Password must be 8-16 characters long.");
+    }
+    // if (!RegExp(r'[0-9]').hasMatch(password)) {
+    //   throw Exception("Password must include at least one digit.");
+    // }
+    // if (!RegExp(r'[a-z]').hasMatch(password)) {
+    //   throw Exception("Password must include at least one lowercase letter.");
+    // }
+    // if (!RegExp(r'[A-Z]').hasMatch(password)) {
+    //   throw Exception("Password must include at least one uppercase letter.");
+    // }
+    // if (!RegExp(r'[@#$%^&+=]').hasMatch(password)) {
+    //   throw Exception(
+    //       "Password must include at least one special character (@#\$%^&+=).");
+    // }
+
+    return;
   }
 }
 
