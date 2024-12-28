@@ -80,6 +80,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             Text("Welcome Back !", style: ts.titleLarge),
             100.ht,
             TextField(
+              controller: _usernameController,
               enableSuggestions: true,
               decoration: InputDecoration(
                 hintText: 'Enter Username',
@@ -89,7 +90,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             ),
             30.ht,
             TextField(
-              obscureText: true,
+              controller: _passwordController,
+              obscureText: passHideShow,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
                 hintText: 'Enter Password',
