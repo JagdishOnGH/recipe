@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 import 'package:recipe_app/features/present_recipe/presentation/riverpod/present_recipe_rp.dart';
 
+import '../../../../routes/auto_route_setup.gr.dart';
 import '../riverpod/authentication_rp.dart';
 
 @RoutePage()
@@ -30,12 +31,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     // final watchAuthentication = ref.watch(authenticationRpProvider);
+    final passHideShow = ref.watch(passwordHideShowProvider);
     ref.listen(authenticationRpProvider, (prev, curr) {
       print("prev $prev and curr $curr");
       if (curr is AsyncLoading) {
         isDialogOpen = true;
         showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (context) => AlertDialog(
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -92,6 +95,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 hintText: 'Enter Password',
                 labelText: 'Password',
                 border: OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                      passHideShow ? Icons.visibility_off : Icons.visibility),
+                  onPressed: () {
+                    ref.read(passwordHideShowProvider.notifier).state =
+                        !passHideShow;
+                  },
+                ),
               ),
             ),
             30.ht,
