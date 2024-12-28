@@ -45,7 +45,6 @@ class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
 
   Future<void> _usernamePasswordValidator(
       String username, String password) async {
-    await Future.delayed(Duration(seconds: 2));
     //username should be 6 characters long alphanumeric only not special characters
     //password should be 8 characters long with at least one special character
     //return true if valid else false
