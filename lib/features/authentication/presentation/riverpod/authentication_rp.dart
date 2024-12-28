@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/features/authentication/repository/auth_repository.dart';
 import 'package:recipe_app/features/authentication/repository/token_store_repository.dart';
@@ -26,6 +27,8 @@ class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
       final token = await _authRepository.login(username, password);
       await _tokenStoreRepository.saveToken(token);
       state = AsyncData(PlaceHolder(data: token));
+    } on DioException catch (e) {
+      state = AsyncError(e.response?.data, StackTrace.empty);
     } on Exception catch (e) {
       state = AsyncError(e, StackTrace.empty);
     }
