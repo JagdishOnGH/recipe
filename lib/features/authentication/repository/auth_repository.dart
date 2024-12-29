@@ -4,10 +4,16 @@ import '../models/register_user_model.dart';
 class AuthRepository {
   final AuthDatasource _authDatasource;
 
-  const AuthRepository(this._authDatasource);
+  const AuthRepository(
+    this._authDatasource,
+  );
 
   Future<String> login(String username, String password) {
     return _authDatasource.login(username, password);
+  }
+
+  Future<String?> loginStatus() {
+    return _authDatasource.loginStatus();
   }
 
   //
