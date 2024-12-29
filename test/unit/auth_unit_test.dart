@@ -17,13 +17,8 @@ void main() {
       authRepository = AuthRepository(authDatasource);
     });
     test("Invalid-Creds-Login-400BAD Req", () async {
-      expect(
-          () async => await authRepository.login("invalid", "invalid"),
-          throwsA(isA<DioException>().having(
-            (e) => e.response?.statusCode,
-            "Invalid-Message",
-            equals(400),
-          )));
+      expect(() async => await authRepository.login("invalid", "invalid"),
+          throwsA(isA<AppGlobalException>()));
     });
     test("ValidCred-200OK", () async {
       final res = await authRepository.login("emilys", "emilyspass");

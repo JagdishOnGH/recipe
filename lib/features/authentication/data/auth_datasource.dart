@@ -20,14 +20,27 @@ class RestDummyAuthDatasource implements AuthDatasource {
 
   @override
   Future<String> login(String username, String password) async {
-    final payload = {
-      'username': username,
-      'password': password,
-    };
-    final request = await _dio.post(LOGIN_URL, data: payload);
-    final token = request.data?['accessToken'] ?? "Dummy token";
-    //TODO save token.
-    return token;
+    try {
+      final payload = {
+        'username': username,
+        'password': password,
+      };
+
+      final request = await _dio.post(LOGIN_URL, data: payload);
+      final token = request.data?['accessToken'] ?? "Dummy token";
+      await _tokenStorage.saveToken(token);
+
+      return token;
+    } on DioException catch (e) {
+      final String? errorMessage = e.response?.data['message'];
+      throw AppGlobalException(errorMessage ?? "Error logging in");
+    } on AppGlobalException catch (e) {
+      printer(e.toString());
+      rethrow;
+    } on Exception catch (e) {
+      printer(e.toString());
+      throw AppGlobalException(e.toString());
+    }
   }
 
   @override
