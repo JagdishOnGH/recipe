@@ -1,9 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:recipe_app/constants/urls.dart';
+import 'package:recipe_app/exceptions/AppGlobalException.dart';
+import 'package:recipe_app/features/authentication/data/token_storage.dart';
+import 'package:recipe_app/helper/globalprinter.dart';
 
 import '../models/register_user_model.dart';
 
 abstract class AuthDatasource {
+  Future<String?> loginStatus();
+
   Future<String> login(String username, String password);
 
   Future<void> logout();
@@ -15,6 +20,7 @@ abstract class AuthDatasource {
 
 class RestDummyAuthDatasource implements AuthDatasource {
   final Dio _dio;
+  final TokenStorage _tokenStorage;
 
   RestDummyAuthDatasource(this._dio, this._tokenStorage);
 
@@ -44,7 +50,9 @@ class RestDummyAuthDatasource implements AuthDatasource {
   }
 
   @override
-  Future<void> logout() async {}
+  Future<void> logout() async {
+    await _tokenStorage.clearToken();
+  }
 
   @override
   Future<void> register(RegisterUserModel registerUserModel) {
@@ -54,5 +62,10 @@ class RestDummyAuthDatasource implements AuthDatasource {
   @override
   Future<void> resetPassword(String email) {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> loginStatus() {
+    return _tokenStorage.getToken();
   }
 }
