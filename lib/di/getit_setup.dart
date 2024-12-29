@@ -13,7 +13,7 @@ import '../features/present_recipe/repository/recipe_repository.dart';
 
 final sl = GetIt.instance;
 
-void setupGetIt() {
+Future<void> setupGetIt() async {
   // getItInit.registerSingletonAsync(() async {
   //   final prefs = await SharedPreferences.getInstance();
   //   return prefs;

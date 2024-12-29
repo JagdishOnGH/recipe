@@ -6,9 +6,9 @@ import 'package:recipe_app/themes/chip_theme.dart';
 
 import 'di/getit_setup.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupGetIt();
+  await setupGetIt();
 
   runApp(ProviderScope(child: MyApp()));
 }
