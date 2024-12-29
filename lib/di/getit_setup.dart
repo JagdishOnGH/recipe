@@ -2,9 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:recipe_app/constants/urls.dart';
-import 'package:recipe_app/features/authentication/data/token_store_datasource.dart';
+import 'package:recipe_app/features/authentication/data/token_storage.dart';
 import 'package:recipe_app/features/authentication/repository/auth_repository.dart';
-import 'package:recipe_app/features/authentication/repository/token_store_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../features/authentication/data/auth_datasource.dart';
@@ -40,7 +39,8 @@ Future<void> setupGetIt() async {
   sl.registerSingleton<RecipeDatasource>(RestRecipeDatasource(sl<Dio>()));
   sl.registerLazySingleton<RestRecipeRepository>(
       () => RestRecipeRepository(sl()));
-  sl.registerLazySingleton<TokenStoreDatasource>(
+  await sl.isReady<SharedPreferences>();
+  sl.registerLazySingleton<TokenStorage>(
       () => SharedPrefTokenStorage(sl<SharedPreferences>()));
 
   sl.registerSingleton<AuthDatasource>(
