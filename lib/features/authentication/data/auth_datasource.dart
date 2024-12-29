@@ -13,10 +13,10 @@ abstract class AuthDatasource {
   Future<void> resetPassword(String email);
 }
 
-class RestAuthDatasource implements AuthDatasource {
+class RestDummyAuthDatasource implements AuthDatasource {
   final Dio _dio;
 
-  const RestAuthDatasource(this._dio);
+  RestDummyAuthDatasource(this._dio, this._tokenStorage);
 
   @override
   Future<String> login(String username, String password) async {

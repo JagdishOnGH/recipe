@@ -13,7 +13,7 @@ void main() {
     late AuthRepository authRepository;
     late AuthDatasource authDatasource;
     setUp(() {
-      authDatasource = RestAuthDatasource(dio);
+      authDatasource = RestDummyAuthDatasource(dio, sl());
       authRepository = AuthRepository(authDatasource);
     });
     test("Invalid-Creds-Login-400BAD Req", () async {

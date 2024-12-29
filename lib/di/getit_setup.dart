@@ -42,8 +42,8 @@ void setupGetIt() {
       () => RestRecipeRepository(sl()));
   sl.registerLazySingleton<TokenStoreDatasource>(
       () => SharedPrefTokenStorage(sl<SharedPreferences>()));
-  sl.registerLazySingleton<TokenStoreRepository>(
-      () => TokenStoreRepository(sl()));
-  sl.registerSingleton<AuthDatasource>(RestAuthDatasource(sl<Dio>()));
-  sl.registerSingleton<AuthRepository>(AuthRepository(sl<AuthDatasource>()));
+
+  sl.registerSingleton<AuthDatasource>(
+      RestDummyAuthDatasource(sl<Dio>(), sl()));
+  sl.registerSingleton<AuthRepository>(AuthRepository(sl()));
 }
