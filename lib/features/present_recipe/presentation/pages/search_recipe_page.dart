@@ -1,8 +1,9 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 
+import '../../../../routes/auto_route_setup.gr.dart';
 import '../riverpod/search_recipe_rp.dart';
 
 @RoutePage()
@@ -22,6 +23,11 @@ class SearchRecipePage extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
+                onSubmitted: (value) {
+                  ref
+                      .read(searchRecipeRpProvider.notifier)
+                      .searchRecipes(value);
+                },
                 controller: _searchController,
                 decoration: InputDecoration(
                   hintText: 'Search Recipe',
@@ -51,6 +57,10 @@ class SearchRecipePage extends ConsumerWidget {
                           itemCount: mydata.recipes.length,
                           itemBuilder: (context, index) {
                             return ListTile(
+                              onTap: () {
+                                context.pushRoute(RecipeDetailRoute(
+                                    recipe: mydata.recipes[index]));
+                              },
                               leading: ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image.network(loadingBuilder:
