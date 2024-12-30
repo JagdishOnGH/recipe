@@ -7,12 +7,12 @@ import '../../../../helper/placeholder_class.dart';
 import '../../models/recipe_model.dart';
 import '../../repository/recipe_repository.dart';
 
-class SearchRecipeRp extends AsyncNotifier<PlaceHolder<RecipeList>> {
+class SearchRecipeRp extends AsyncNotifier<DataPlaceHolder<RecipeList>> {
   final recipeRepository = sl<RestRecipeRepository>();
 
   @override
-  FutureOr<PlaceHolder<RecipeList>> build() async {
-    return PlaceHolder();
+  FutureOr<DataPlaceHolder<RecipeList>> build() async {
+    return DataPlaceHolder();
   }
 
   void searchRecipes(String query, {int limit = 10, int offset = 1}) async {
@@ -20,7 +20,7 @@ class SearchRecipeRp extends AsyncNotifier<PlaceHolder<RecipeList>> {
       state = AsyncLoading();
       final result = await recipeRepository.searchRecipes(query,
           limit: limit, offset: offset);
-      final dataUnderPlaceHolder = PlaceHolder(data: result);
+      final dataUnderPlaceHolder = DataPlaceHolder(data: result);
       state = AsyncData((dataUnderPlaceHolder));
     } on Exception catch (e) {
       state = AsyncError(e, StackTrace.current);
@@ -31,6 +31,6 @@ class SearchRecipeRp extends AsyncNotifier<PlaceHolder<RecipeList>> {
 
 //auto dispose provider
 final searchRecipeRpProvider =
-    AsyncNotifierProvider<SearchRecipeRp, PlaceHolder<RecipeList>>(
+    AsyncNotifierProvider<SearchRecipeRp, DataPlaceHolder<RecipeList>>(
   () => SearchRecipeRp(),
 );
