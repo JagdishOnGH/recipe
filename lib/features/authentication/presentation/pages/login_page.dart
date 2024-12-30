@@ -63,7 +63,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         if (curr is AsyncData) {
           if ((curr as AsyncData).value.hasData == true) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Login Successful: ${curr.value!.data!}'),
+              content: Text('Login Successful'),
             ));
             context.router.popUntil((route) => route.isFirst);
             context.replaceRoute(HomeRoute());
