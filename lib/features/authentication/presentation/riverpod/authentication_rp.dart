@@ -7,14 +7,14 @@ import 'package:recipe_app/helper/placeholder_class.dart';
 import '../../../../di/getit_setup.dart';
 import '../../../../exceptions/AppGlobalException.dart';
 
-class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
+class AuthenticationRp extends AsyncNotifier<DataPlaceHolder<String>> {
   final AuthRepository _authRepository = sl<AuthRepository>();
 
   @override
-  Future<PlaceHolder<String>> build() async {
+  Future<DataPlaceHolder<String>> build() async {
     state = AsyncLoading();
     final token = await _authRepository.loginStatus();
-    return PlaceHolder(data: token);
+    return DataPlaceHolder(data: token);
   }
 
   void login(String username, String password) async {
@@ -22,7 +22,7 @@ class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
     state = await AsyncValue.guard(() async {
       await _usernamePasswordValidator(username, password);
       final token = await _authRepository.login(username, password);
-      return PlaceHolder(data: token);
+      return DataPlaceHolder(data: token);
     });
   }
 
@@ -31,7 +31,7 @@ class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
     state = await AsyncValue.guard(() async {
       await _authRepository.logout();
 
-      return PlaceHolder();
+      return DataPlaceHolder();
     });
   }
 
@@ -84,6 +84,6 @@ class AuthenticationRp extends AsyncNotifier<PlaceHolder<String>> {
 }
 
 final authenticationRpProvider =
-    AsyncNotifierProvider<AuthenticationRp, PlaceHolder<String>>(
+    AsyncNotifierProvider<AuthenticationRp, DataPlaceHolder<String>>(
   () => AuthenticationRp(),
 );

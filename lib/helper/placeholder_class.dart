@@ -1,7 +1,7 @@
-class PlaceHolder<T> {
+class DataPlaceHolder<T> {
   T? data;
 
-  PlaceHolder({this.data});
+  DataPlaceHolder({this.data});
 
   bool get hasData => data != null;
 }
