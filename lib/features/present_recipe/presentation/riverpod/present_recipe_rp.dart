@@ -7,13 +7,13 @@ import 'package:riverpod/riverpod.dart';
 
 import '../../../../helper/placeholder_class.dart';
 
-class PresentRecipeRp extends AsyncNotifier<PlaceHolder<RecipeList>> {
+class PresentRecipeRp extends AsyncNotifier<DataPlaceHolder<RecipeList>> {
   final RestRecipeRepository _recipeRepository = sl<RestRecipeRepository>();
 
   @override
-  FutureOr<PlaceHolder<RecipeList>> build() async {
+  FutureOr<DataPlaceHolder<RecipeList>> build() async {
     final result = await _getRecipes();
-    return PlaceHolder<RecipeList>(data: result);
+    return DataPlaceHolder<RecipeList>(data: result);
   }
 
   Future<RecipeList> _getRecipes({int limit = 10, int offset = 1}) async {
@@ -24,6 +24,6 @@ class PresentRecipeRp extends AsyncNotifier<PlaceHolder<RecipeList>> {
 }
 
 final presentRecipeRpProvider =
-    AsyncNotifierProvider<PresentRecipeRp, PlaceHolder<RecipeList>>(
+    AsyncNotifierProvider<PresentRecipeRp, DataPlaceHolder<RecipeList>>(
   () => PresentRecipeRp(),
 );
