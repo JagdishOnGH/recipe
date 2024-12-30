@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
-import 'package:recipe_app/features/authentication/presentation/riverpod/authentication_rp.dart';
 
 import '../../../../routes/auto_route_setup.gr.dart';
 
@@ -69,10 +68,10 @@ class OnboardingPage extends ConsumerWidget {
                 height: 50,
                 child: OutlinedButton(
                   onPressed: () async {
-                    ref.read(authenticationRpProvider.notifier);
-                    await Future.microtask(() {
-                      context.router.push(LoginRoute());
-                    });
+                    //ref.read(authenticationRpProvider.notifier).build();
+                    context.router.push(
+                      LoginRoute(),
+                    );
                     // context.pushRoute(LoginRoute());
                   },
                   child: Text('Login to continue'),
