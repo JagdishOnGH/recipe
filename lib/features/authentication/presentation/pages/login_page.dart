@@ -22,6 +22,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   bool isDialogOpen = false;
 
   @override
+  void initState() {
+    ///add [jsa] }
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   ref.read(authenticationRpProvider.notifier);
+    // });
+
+    //  ref.read(authenticationRpProvider.notifier).build();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _usernameController.dispose();
     _passwordController.dispose();
@@ -78,7 +89,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           automaticallyImplyLeading: false,
         ),
         body: ListView(
-          padding: EdgeInsets.only(left: 20, right: 10),
+          padding: const EdgeInsets.only(left: 20, right: 10),
           children: [
             Text(
               'Hello,',
@@ -90,10 +101,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             TextField(
               controller: _usernameController,
               enableSuggestions: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Enter Username',
                 labelText: 'Username',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
             ),
             30.ht,
@@ -104,7 +115,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               decoration: InputDecoration(
                 hintText: 'Enter Password',
                 labelText: 'Password',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                   icon: Icon(
                       passHideShow ? Icons.visibility_off : Icons.visibility),
@@ -130,7 +141,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   ref.read(authenticationRpProvider.notifier).login(
                       _usernameController.text, _passwordController.text);
                 },
-                child: Text('Login'),
+                child: const Text('Login'),
               ),
             ),
             20.ht,
@@ -139,12 +150,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Don't have an account?"),
+                const Text("Don't have an account?"),
                 TextButton(
                   onPressed: () {
                     ref.invalidate(presentRecipeRpProvider);
                   },
-                  child: Text('Sign Up'),
+                  child: const Text('Sign Up'),
                 ),
               ],
             ),
