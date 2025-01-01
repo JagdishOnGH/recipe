@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:recipe_app/constants/urls.dart';
-import 'package:recipe_app/exceptions/AppGlobalException.dart';
+import 'package:recipe_app/exceptions/app_global_exception.dart';
 import 'package:recipe_app/features/authentication/data/token_storage.dart';
 import 'package:recipe_app/helper/globalprinter.dart';
 

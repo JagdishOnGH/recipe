@@ -1,4 +1,4 @@
-import 'package:recipe_app/exceptions/AppGlobalException.dart';
+import 'package:recipe_app/exceptions/app_global_exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class TokenStorage {

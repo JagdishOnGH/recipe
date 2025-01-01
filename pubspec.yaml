@@ -41,6 +41,7 @@ dependencies:
   shared_preferences:
   auto_route: ^9.2.2
   flutter_riverpod:
+  logger: ^2.5.0
 
 
 dev_dependencies:

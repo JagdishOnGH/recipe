@@ -1,11 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 import 'package:recipe_app/features/present_recipe/presentation/riverpod/present_recipe_rp.dart';
 
 import '../../../../routes/auto_route_setup.gr.dart';
 import '../riverpod/authentication_rp.dart';
+
+final logger = Logger();
 
 @RoutePage()
 class LoginPage extends ConsumerStatefulWidget {
@@ -16,19 +19,22 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
+  late ThemeData theme;
+  late TextTheme ts;
+  late TextEditingController _usernameController;
 
-  final TextEditingController _passwordController = TextEditingController();
+  late TextEditingController _passwordController;
   bool isDialogOpen = false;
 
   @override
   void initState() {
-    ///add [jsa] }
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   ref.read(authenticationRpProvider.notifier);
-    // });
+    _usernameController = TextEditingController();
+    _passwordController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      theme = Theme.of(context);
+      ts = theme.textTheme;
+    });
 
-    //  ref.read(authenticationRpProvider.notifier).build();
     super.initState();
   }
 
@@ -41,10 +47,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final watchAuthentication = ref.watch(authenticationRpProvider);
     final passHideShow = ref.watch(passwordHideShowProvider);
     ref.listen(authenticationRpProvider, (prev, curr) {
-      print("prev $prev and curr $curr");
       if (curr is AsyncLoading) {
         isDialogOpen = true;
         showDialog(
@@ -82,6 +86,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         }
       }
     });
+
     final theme = Theme.of(context);
     final ts = Theme.of(context).textTheme;
     return Scaffold(

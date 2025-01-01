@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:recipe_app/di/getit_setup.dart';
-import 'package:recipe_app/exceptions/AppGlobalException.dart';
+import 'package:recipe_app/exceptions/app_global_exception.dart';
 import 'package:recipe_app/features/authentication/data/auth_datasource.dart';
 import 'package:recipe_app/features/authentication/data/token_storage.dart';
 import 'package:recipe_app/features/authentication/repository/auth_repository.dart';

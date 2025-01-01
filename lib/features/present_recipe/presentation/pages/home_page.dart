@@ -12,6 +12,7 @@ import '../riverpod/present_recipe_rp.dart';
 class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
+    final router = AutoRouter.of(context);
     final recipeList = ref.watch(presentRecipeRpProvider);
     final watchAuthentication = ref.watch(authenticationRpProvider);
 
@@ -36,7 +37,8 @@ class HomePage extends ConsumerWidget {
                     icon: const Icon(Icons.login)),
             IconButton(
                 onPressed: () {
-                  context.router.push(SearchRecipeRoute());
+                  context.router.navigate(SearchRecipeRoute());
+                  // context.router.push(SearchRecipeRoute());
                 },
                 icon: const Icon(Icons.search))
           ],

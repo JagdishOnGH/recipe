@@ -5,13 +5,14 @@ import 'package:recipe_app/features/authentication/repository/auth_repository.da
 import 'package:recipe_app/helper/placeholder_class.dart';
 
 import '../../../../di/getit_setup.dart';
-import '../../../../exceptions/AppGlobalException.dart';
+import '../../../../exceptions/app_global_exception.dart';
 
 class AuthenticationRp extends AsyncNotifier<DataPlaceHolder<String>> {
   final AuthRepository _authRepository = sl<AuthRepository>();
 
   @override
   Future<DataPlaceHolder<String>> build() async {
+    throw Exception("Method not implemented");
     state = AsyncLoading();
     final token = await _authRepository.loginStatus();
     return DataPlaceHolder(data: token);
