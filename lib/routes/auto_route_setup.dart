@@ -60,5 +60,3 @@ class AutoRouteSetup extends RootStackRouter {
 //     }
 //   }
 // }
-
-void abc([bool a = true]) {}
