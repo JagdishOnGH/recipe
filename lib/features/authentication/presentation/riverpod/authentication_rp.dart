@@ -12,9 +12,9 @@ class AuthenticationRp extends AsyncNotifier<DataPlaceHolder<String>> {
 
   @override
   Future<DataPlaceHolder<String>> build() async {
-    throw Exception("Method not implemented");
     state = AsyncLoading();
     final token = await _authRepository.loginStatus();
+
     return DataPlaceHolder(data: token);
   }
 
