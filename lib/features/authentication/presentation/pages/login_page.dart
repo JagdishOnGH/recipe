@@ -77,7 +77,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               content: Text('Logged in'),
             ));
             context.router.popUntil((route) => route.isFirst);
-            context.replaceRoute(HomeRoute());
+            context.replaceRoute((EntryPointRoute()));
           }
         }
       }
