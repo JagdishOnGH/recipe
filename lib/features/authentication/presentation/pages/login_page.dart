@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 import 'package:recipe_app/features/present_recipe/presentation/riverpod/present_recipe_rp.dart';
 
-import '../../../../routes/auto_route_setup.gr.dart';
+import '../../../../extensions/riverpod_builder.dart';
 import '../riverpod/authentication_rp.dart';
 
 final logger = Logger();
@@ -47,7 +47,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final passHideShow = ref.watch(passwordHideShowProvider);
     ref.listen(authenticationRpProvider, (prev, curr) {
       if (curr is AsyncLoading) {
         isDialogOpen = true;
@@ -80,8 +79,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Logged in'),
             ));
-            context.router.popUntil((route) => route.isFirst);
-            context.replaceRoute((EntryPointRoute()));
+            // context.router.popUntil((route) => route.isFirst);
+            // context.replaceRoute((EntryPointRoute()));
           }
         }
       }
@@ -113,24 +112,27 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               ),
             ),
             30.ht,
-            TextField(
-              controller: _passwordController,
-              obscureText: passHideShow,
-              keyboardType: TextInputType.name,
-              decoration: InputDecoration(
-                hintText: 'Enter Password',
-                labelText: 'Password',
-                border: const OutlineInputBorder(),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                      passHideShow ? Icons.visibility_off : Icons.visibility),
-                  onPressed: () {
-                    ref.read(passwordHideShowProvider.notifier).state =
-                        !passHideShow;
-                  },
+            RiverpodBuilder(builder: (context, ref) {
+              final passHideShow = ref.watch(passwordHideShowProvider);
+              return TextField(
+                controller: _passwordController,
+                obscureText: passHideShow,
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  hintText: 'Enter Password',
+                  labelText: 'Password',
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                        passHideShow ? Icons.visibility_off : Icons.visibility),
+                    onPressed: () {
+                      ref.read(passwordHideShowProvider.notifier).state =
+                          !passHideShow;
+                    },
+                  ),
                 ),
-              ),
-            ),
+              );
+            }),
             30.ht,
             InkWell(
               onTap: () {},
