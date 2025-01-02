@@ -4,6 +4,7 @@ import 'package:recipe_app/di/getit_setup.dart';
 import 'package:recipe_app/exceptions/app_global_exception.dart';
 import 'package:recipe_app/features/authentication/data/auth_datasource.dart';
 import 'package:recipe_app/features/authentication/data/token_storage.dart';
+import 'package:recipe_app/features/authentication/models/user_model.dart';
 import 'package:recipe_app/features/authentication/repository/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,6 +32,13 @@ void main() async {
       expect(
         res.runtimeType,
         equals(String),
+      );
+    });
+    test("Test User Auth", () async {
+      final res = await authRepository.userProfile();
+      expect(
+        res.runtimeType,
+        equals(UserModel),
       );
     });
   });
