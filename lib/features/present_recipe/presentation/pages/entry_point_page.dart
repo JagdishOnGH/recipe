@@ -10,7 +10,7 @@ class EntryPointPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
       //  homeIndex: 0,
-      routes: const [HomeRoute(), LoginReminderRoute()],
+      routes: const [HomeRoute(), ProfileRoute()],
       bottomNavigationBuilder: (context, _) {
         final tabsRouter = context.tabsRouter;
         return BottomNavigationBar(

@@ -78,10 +78,14 @@ class RestDummyAuthDatasource implements AuthDatasource {
     if (token == null) {
       throw AppGlobalException("User not logged in");
     }
-    final response = await _dio.get(USER_PROFILE_URL,
-        options: Options(headers: {'Authorization': "Bearer $token"}));
-
-    final userModel = UserModel.fromJson(response.data);
-    return userModel;
+    try {
+      final response = await _dio.get(USER_PROFILE_URL,
+          options: Options(headers: {'Authorization': "Bearer $token"}));
+      final userModel = UserModel.fromJson(response.data);
+      return userModel;
+    } on DioException catch (e) {
+      final resp = e.response?.statusMessage ?? "Error getting user profile";
+      throw AppGlobalException(resp);
+    }
   }
 }
