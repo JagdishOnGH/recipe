@@ -6,6 +6,7 @@ import 'package:recipe_app/extensions/on_num.dart';
 import 'package:recipe_app/features/present_recipe/presentation/riverpod/present_recipe_rp.dart';
 
 import '../../../../extensions/riverpod_builder.dart';
+import '../../../../routes/auto_route_setup.gr.dart';
 import '../riverpod/authentication_rp.dart';
 
 final logger = Logger();
@@ -79,8 +80,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Logged in'),
             ));
-            // context.router.popUntil((route) => route.isFirst);
-            // context.replaceRoute((EntryPointRoute()));
+            context.router.popUntil((route) => route.isFirst);
+            context.replaceRoute((EntryPointRoute()));
           }
         }
       }
