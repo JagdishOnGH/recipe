@@ -50,6 +50,7 @@ class AuthRouteGuard extends AutoRouteGuard {
     if (result is AsyncData && result.value?.data != null) {
       resolver.next(true);
     } else {
+      //check:
       router.push(const LoginReminderRoute());
       resolver.next(false);
     }
