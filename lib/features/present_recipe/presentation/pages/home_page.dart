@@ -37,8 +37,7 @@ class HomePage extends ConsumerWidget {
                     icon: const Icon(Icons.login)),
             IconButton(
                 onPressed: () {
-                  context.router.navigate(SearchRecipeRoute());
-                  // context.router.push(SearchRecipeRoute());
+                  context.router.push(SearchRecipeRoute());
                 },
                 icon: const Icon(Icons.search))
           ],

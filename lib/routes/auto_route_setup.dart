@@ -22,11 +22,11 @@ class AutoRouteSetup extends RootStackRouter {
           page: HomeRoute.page,
           path: "/home",
         ),
+        AutoRoute(page: SearchRecipeRoute.page, path: "/search-recipe"),
         AutoRoute(page: RecipeDetailRoute.page, path: "/recipe-detail"),
         AutoRoute(page: EntryPointRoute.page, path: "/entry-point", children: [
           AutoRoute(page: HomeRoute.page, path: "home", children: [
             AutoRoute(page: RecipeDetailRoute.page, path: "recipe-detail"),
-            AutoRoute(page: SearchRecipeRoute.page, path: "search-recipe"),
           ]),
           AutoRoute(page: ProfileRoute.page, path: "profile"),
         ]),
