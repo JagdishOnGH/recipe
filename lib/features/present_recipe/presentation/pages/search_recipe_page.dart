@@ -70,8 +70,7 @@ class SearchRecipePage extends ConsumerWidget {
                                 child: Image.network(loadingBuilder:
                                     (context, child, loadingProgress) {
                                   if (loadingProgress == null) return child;
-                                  return Center(
-                                      child: CircularProgressIndicator());
+                                  return CircularProgressIndicator();
                                 }, height: 50, mydata.recipes[index].image),
                               ),
                               title: Text(mydata.recipes[index].name),
