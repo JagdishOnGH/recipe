@@ -51,7 +51,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     ref.listen(authenticationRpProvider, (prev, curr) {
       logger.d('prev: $prev, curr: $curr');
       if (curr is AsyncLoading) {
-        ///teest push [hello] hshd
         isDialogOpen = true;
         showDialog(
             context: context,
