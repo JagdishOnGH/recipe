@@ -11,7 +11,7 @@ class SearchRecipePage extends ConsumerWidget {
   final TextEditingController _searchController = TextEditingController();
 
   @override
-  Widget build(BuildContext, ref) {
+  Widget build(BuildContext context, ref) {
     final searchProvider = ref.watch(searchRecipeRpProvider);
     return Scaffold(
         appBar: AppBar(
@@ -24,9 +24,12 @@ class SearchRecipePage extends ConsumerWidget {
             children: [
               TextField(
                 onSubmitted: (value) {
+                  FocusScope.of(context).unfocus();
                   ref
                       .read(searchRecipeRpProvider.notifier)
                       .searchRecipes(value);
+
+                  //hide keyboard
                 },
                 controller: _searchController,
                 decoration: InputDecoration(
@@ -40,6 +43,7 @@ class SearchRecipePage extends ConsumerWidget {
                       ref
                           .read(searchRecipeRpProvider.notifier)
                           .searchRecipes(text);
+                      FocusScope.of(context).unfocus();
                     },
                     icon: Icon(Icons.search),
                   ),
