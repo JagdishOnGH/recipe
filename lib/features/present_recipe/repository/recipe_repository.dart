@@ -6,12 +6,12 @@ import '../data/recipe_datasource.dart';
 //   Future getRecipes({int limit = 10, int offset = 1});
 // }
 
-class RestRecipeRepository {
+class RecipeRepository {
   final RecipeDatasource _recipeDatasource;
 
   // final TokenStorage _tokenStorage;
 
-  RestRecipeRepository(this._recipeDatasource);
+  RecipeRepository(this._recipeDatasource);
 
   Future<RecipeList> getRecipes({int limit = 10, int offset = 1}) async {
     return await _recipeDatasource.getRecipes(limit: limit, offset: offset);
