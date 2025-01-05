@@ -8,7 +8,7 @@ import '../../models/recipe_model.dart';
 import '../../repository/recipe_repository.dart';
 
 class SearchRecipeRp extends AsyncNotifier<DataPlaceHolder<RecipeList>> {
-  final recipeRepository = sl<RestRecipeRepository>();
+  final recipeRepository = sl<RecipeRepository>();
 
   @override
   FutureOr<DataPlaceHolder<RecipeList>> build() async {
