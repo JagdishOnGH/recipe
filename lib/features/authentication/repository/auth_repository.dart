@@ -18,8 +18,9 @@ class AuthRepository {
     return _authDatasource.login(username, password);
   }
 
-  Future<String?> loginStatus() {
-    return _authDatasource.loginStatus();
+  Future<String?> loginStatus() async {
+    return await Future.microtask(
+        () async => await _authDatasource.loginStatus());
   }
 
   //
