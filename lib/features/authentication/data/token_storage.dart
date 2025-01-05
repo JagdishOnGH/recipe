@@ -1,3 +1,4 @@
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:recipe_app/exceptions/app_global_exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
