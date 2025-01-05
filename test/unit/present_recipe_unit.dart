@@ -11,11 +11,11 @@ void main() {
   group("Present Recipi", () {
     setupGetIt();
     final dio = sl<Dio>();
-    late RestRecipeRepository recipeRepository;
+    late RecipeRepository recipeRepository;
     late RecipeDatasource recipeDatasource;
     setUp(() {
       recipeDatasource = RestRecipeDatasource(dio);
-      recipeRepository = RestRecipeRepository(recipeDatasource);
+      recipeRepository = RecipeRepository(recipeDatasource);
     });
     test("Get Recipes", () async {
       final res = await recipeRepository.getRecipes();
