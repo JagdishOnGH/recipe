@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_app/extensions/on_num.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../helper/placeholder_class.dart';
 import '../../../../routes/auto_route_setup.gr.dart';
@@ -54,7 +57,58 @@ class HomePage extends ConsumerWidget {
                       });
                 },
                 error: (e, s) => Text(e.toString()),
-                loading: () => Center(child: CircularProgressIndicator()))));
+                loading: () {
+                  return ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: const EdgeInsets.all(8),
+                          margin: const EdgeInsets.all(10),
+                          height: 300,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Center(
+                                child: Image.asset(
+                                  "assets/food_placeholder.png",
+                                  height: 120,
+                                  width: 120,
+                                ),
+                              ),
+                              30.ht,
+                              SizedBox(
+                                height: 20,
+                                width: 300,
+                                child: Shimmer.fromColors(
+                                  baseColor: Colors.grey.shade400,
+                                  highlightColor: Colors.grey.shade200,
+                                  child: Container(
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                              ),
+                              10.ht,
+                              SizedBox(
+                                height: 20,
+                                child: Shimmer.fromColors(
+                                  baseColor: Colors.grey.shade400,
+                                  highlightColor: Colors.grey.shade200,
+                                  child: Container(
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                              ),
+                              20.ht,
+                            ],
+                          ),
+                        );
+                      });
+                })));
   }
 
   Widget DemoWidget(BuildContext context, Recipe recipe) {
