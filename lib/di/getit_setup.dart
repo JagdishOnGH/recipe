@@ -18,8 +18,8 @@ Future<void> setupGetIt() async {
   //   return prefs;
   // });
 //dio
-  sl.registerSingletonAsync<SharedPreferences>(() async {
-    final prefs = await SharedPreferences.getInstance();
+  sl.registerSingletonAsync<SharedPreferences>(() {
+    final prefs = SharedPreferences.getInstance();
     return prefs;
   });
   sl.registerLazySingleton<Dio>(() => Dio(
@@ -37,11 +37,9 @@ Future<void> setupGetIt() async {
           maxWidth: 90)));
 
   sl.registerSingleton<RecipeDatasource>(RestRecipeDatasource(sl<Dio>()));
-  sl.registerLazySingleton<RestRecipeRepository>(
-      () => RestRecipeRepository(sl()));
+  sl.registerLazySingleton<RecipeRepository>(() => RecipeRepository(sl()));
   await sl.isReady<SharedPreferences>();
-  sl.registerLazySingleton<TokenStorage>(
-      () => SharedPrefTokenStorage(sl<SharedPreferences>()));
+  sl.registerLazySingleton<TokenStorage>(() => SharedPrefTokenStorage(sl()));
 
   sl.registerSingleton<AuthDatasource>(
       RestDummyAuthDatasource(sl<Dio>(), sl()));
