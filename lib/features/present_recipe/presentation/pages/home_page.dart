@@ -80,11 +80,19 @@ class HomePage extends ConsumerWidget {
             ),
             child: Stack(
               children: [
-                Image.network(
-                  recipe.image,
+                CachedNetworkImage(
+                  cacheKey: recipe.id.toString(),
+                  imageUrl: recipe.image,
                   width: 700,
                   height: 400,
                   fit: BoxFit.cover,
+                  placeholder: (context, url) => Center(
+                    child: Image.asset(
+                      "assets/food_placeholder.png",
+                      height: 50,
+                      width: 50,
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 400,

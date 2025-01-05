@@ -42,6 +42,7 @@ dependencies:
   auto_route: ^9.2.2
   flutter_riverpod:
   logger: ^2.5.0
+  cached_network_image:
 
 
 dev_dependencies:
