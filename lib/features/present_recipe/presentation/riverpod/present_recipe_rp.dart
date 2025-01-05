@@ -12,6 +12,7 @@ class PresentRecipeRp extends AsyncNotifier<DataPlaceHolder<RecipeList>> {
 
   @override
   FutureOr<DataPlaceHolder<RecipeList>> build() async {
+    state = AsyncLoading();
     final result = await _getRecipes();
     return DataPlaceHolder<RecipeList>(data: result);
   }
