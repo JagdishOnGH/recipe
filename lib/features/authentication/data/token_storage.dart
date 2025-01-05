@@ -30,7 +30,12 @@ class SharedPrefTokenStorage implements TokenStorage {
   // Get token
   Future<String?> getToken() async {
     try {
-      return prefs.getString(_authTokenKey);
+      final token = await prefs.getString(_authTokenKey);
+      if (token != null && JwtDecoder.isExpired(token)) {
+        await clearToken();
+        return null;
+      }
+      return token;
     } on Exception catch (e) {
       throw AppGlobalException("Error getting token. ${e.toString()}");
     }
