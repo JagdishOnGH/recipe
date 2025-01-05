@@ -30,9 +30,11 @@ class RestDummyAuthDatasource implements AuthDatasource {
   @override
   Future<String> login(String username, String password) async {
     try {
+      int expiry = 10 * 24 * 60;
       final payload = {
         'username': username,
         'password': password,
+        'expiresInMins': expiry,
       };
 
       final request = await _dio.post(LOGIN_URL, data: payload);
