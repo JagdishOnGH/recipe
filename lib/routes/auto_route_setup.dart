@@ -28,6 +28,7 @@ class AutoRouteSetup extends RootStackRouter {
           AutoRoute(page: HomeRoute.page, path: "home", children: [
             AutoRoute(page: RecipeDetailRoute.page, path: "recipe-detail"),
           ]),
+          AutoRoute(page: OfflineShowRoute.page, path: "offline-show"),
           AutoRoute(page: ProfileRoute.page, path: "profile"),
         ]),
       ];
