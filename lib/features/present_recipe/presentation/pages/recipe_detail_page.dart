@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
@@ -38,7 +39,7 @@ class RecipeDetailPage extends StatelessWidget {
                 skipLoadingOnReload: false,
                 data: (data) {
                   return Icon(data
-                      ? Icons.download_done_outlined
+                      ? Icons.delete_forever_outlined
                       : Icons.download_outlined);
                 },
                 loading: () => CircularProgressIndicator(),
@@ -57,8 +58,9 @@ class RecipeDetailPage extends StatelessWidget {
             SizedBox(
                 height: 250,
                 width: double.infinity,
-                child: Image.network(
-                  recipe.image,
+                child: CachedNetworkImage(
+                  imageUrl: recipe.image,
+                  cacheKey: "recipe-image-${recipe.id}",
                   fit: BoxFit.fitWidth,
                 )),
             Container(
