@@ -1,9 +1,10 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/riverpod_builder.dart';
 import 'package:recipe_app/features/present_recipe/presentation/riverpod/offline_recipe_display_rp.dart';
 
+import '../../../../routes/auto_route_setup.gr.dart';
 import '../comps/offline_items_comp.dart';
 
 @RoutePage()
@@ -57,7 +58,13 @@ class OfflineShowPage extends StatelessWidget {
                       itemCount: data.length,
                       itemBuilder: (context, index) {
                         final recipe = data[index];
-                        return OfflineItemsComp(recipe: recipe);
+                        return InkWell(
+                          child: OfflineItemsComp(recipe: recipe),
+                          onTap: () {
+                            context
+                                .pushRoute(RecipeDetailRoute(recipe: recipe));
+                          },
+                        );
                       },
                     );
                   },

@@ -6,20 +6,19 @@ import 'package:recipe_app/extensions/on_num.dart';
 import 'package:recipe_app/features/present_recipe/presentation/riverpod/present_recipe_rp.dart';
 
 import '../../../../extensions/riverpod_builder.dart';
-import '../../../../routes/auto_route_setup.gr.dart';
 import '../riverpod/authentication_rp.dart';
 
 final logger = Logger();
 
 @RoutePage()
-class LoginPage extends ConsumerStatefulWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  ConsumerState<LoginPage> createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends ConsumerState<LoginPage> {
+class _LoginPageState extends State<LoginPage> {
   late ThemeData theme;
   late TextTheme ts;
   late TextEditingController _usernameController;
@@ -48,46 +47,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(authenticationRpProvider, (prev, curr) {
-      logger.d('prev: $prev, curr: $curr');
-      if (curr is AsyncLoading) {
-        isDialogOpen = true;
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) => AlertDialog(
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CircularProgressIndicator(),
-                      10.ht,
-                      Text('Please wait...'),
-                    ],
-                  ),
-                ));
-      } else if ((prev is AsyncLoading && prev != null) &&
-          (curr is AsyncError || curr is AsyncData)) {
-        if (isDialogOpen) {
-          context.maybePop();
-          isDialogOpen = false;
-        }
-        if (curr is AsyncError) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(curr.error.toString()),
-          ));
-        }
-        if (curr is AsyncData) {
-          if ((curr as AsyncData).value.hasData == true) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Logged in'),
-            ));
-            context.router.popUntil((route) => route.isFirst);
-            context.replaceRoute((EntryPointRoute()));
-          }
-        }
-      }
-    });
-
     final theme = Theme.of(context);
     final ts = Theme.of(context).textTheme;
     return Scaffold(
@@ -145,13 +104,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             20.ht,
             SizedBox(
               height: 50,
-              child: FilledButton(
-                onPressed: () {
-                  ref.read(authenticationRpProvider.notifier).login(
-                      _usernameController.text, _passwordController.text);
-                },
-                child: const Text('Login'),
-              ),
+              child: RiverpodBuilder(builder: (context, ref) {
+                return FilledButton(
+                  onPressed: () {
+                    ref.read(authenticationRpProvider.notifier).login(
+                        _usernameController.text, _passwordController.text);
+                  },
+                  child: const Text('Login'),
+                );
+              }),
             ),
             20.ht,
             Divider(),
@@ -160,12 +121,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text("Don't have an account?"),
-                TextButton(
-                  onPressed: () {
-                    ref.invalidate(presentRecipeRpProvider);
-                  },
-                  child: const Text('Sign Up'),
-                ),
+                RiverpodBuilder(builder: (context, ref) {
+                  return TextButton(
+                    onPressed: () {
+                      ref.invalidate(presentRecipeRpProvider);
+                    },
+                    child: const Text('Sign Up'),
+                  );
+                }),
               ],
             ),
           ],
