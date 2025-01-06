@@ -1,9 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
+import 'package:recipe_app/features/authentication/presentation/pages/login_page.dart';
 import 'package:recipe_app/features/present_recipe/presentation/comps/instruction_widgets.dart';
+import 'package:recipe_app/features/present_recipe/repository/offline_recipe_repository.dart';
 
+import '../../../../di/getit_setup.dart';
+import '../../../../extensions/riverpod_builder.dart';
 import '../../models/recipe_model.dart';
+import '../riverpod/offline_recipe_display_rp.dart';
 import 'home_page.dart';
 
 @RoutePage()
@@ -17,6 +23,31 @@ class RecipeDetailPage extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        floatingActionButton: RiverpodBuilder(builder: (context, ref) {
+          final status = ref.watch(recipeIsSavedProvider(recipe.id));
+          return FloatingActionButton(
+              onPressed: () {
+                if (status.hasValue && status.asData! != true) {
+                  final OfflineRecipeRepository repo = sl();
+
+                  repo.saveRecipe(recipe);
+                  ref.invalidate(recipeIsSavedProvider(recipe.id));
+                }
+              },
+              child: status.when(
+                skipLoadingOnReload: false,
+                data: (data) {
+                  return Icon(data
+                      ? Icons.download_done_outlined
+                      : Icons.download_outlined);
+                },
+                loading: () => CircularProgressIndicator(),
+                error: (e, s) {
+                  logger.d(e);
+                  return Icon(Icons.error);
+                },
+              ));
+        }),
         //persistentFooterButtons: [],
         appBar: AppBar(
           title: Text(recipe.name),
