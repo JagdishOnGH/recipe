@@ -11,6 +11,7 @@ class RecipeList {
     required this.limit,
   });
 
+  /// Factory constructor to create `RecipeList` from JSON
   factory RecipeList.fromJson(Map<String, dynamic> json) {
     return RecipeList(
       recipes:
@@ -19,6 +20,16 @@ class RecipeList {
       skip: json['skip'],
       limit: json['limit'],
     );
+  }
+
+  /// Convert `RecipeList` object to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'recipes': recipes.map((x) => x.toJson()).toList(),
+      'total': total,
+      'skip': skip,
+      'limit': limit,
+    };
   }
 }
 
@@ -59,6 +70,7 @@ class Recipe {
     required this.mealType,
   });
 
+  /// Factory constructor to create `Recipe` from JSON
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
       id: json['id'],
@@ -78,5 +90,27 @@ class Recipe {
       reviewCount: json['reviewCount'],
       mealType: List<String>.from(json['mealType']),
     );
+  }
+
+  /// Convert `Recipe` object to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'ingredients': ingredients,
+      'instructions': instructions,
+      'prepTimeMinutes': prepTimeMinutes,
+      'cookTimeMinutes': cookTimeMinutes,
+      'servings': servings,
+      'difficulty': difficulty,
+      'cuisine': cuisine,
+      'caloriesPerServing': caloriesPerServing,
+      'tags': tags,
+      'userId': userId,
+      'image': image,
+      'rating': rating,
+      'reviewCount': reviewCount,
+      'mealType': mealType,
+    };
   }
 }
