@@ -135,7 +135,7 @@ class HomePage extends ConsumerWidget {
             child: Stack(
               children: [
                 CachedNetworkImage(
-                  cacheKey: recipe.id.toString(),
+                  cacheKey: "recipe-image-${recipe.id}",
                   imageUrl: recipe.image,
                   width: 700,
                   height: 400,
