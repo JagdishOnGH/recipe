@@ -4,9 +4,11 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:recipe_app/constants/urls.dart';
 import 'package:recipe_app/features/authentication/data/token_storage.dart';
 import 'package:recipe_app/features/authentication/repository/auth_repository.dart';
+import 'package:recipe_app/features/present_recipe/repository/offline_recipe_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../features/authentication/data/auth_datasource.dart';
+import '../features/present_recipe/data/offline_datasource.dart';
 import '../features/present_recipe/data/recipe_datasource.dart';
 import '../features/present_recipe/repository/recipe_repository.dart';
 
@@ -18,8 +20,8 @@ Future<void> setupGetIt() async {
   //   return prefs;
   // });
 //dio
-  sl.registerSingletonAsync<SharedPreferences>(() {
-    final prefs = SharedPreferences.getInstance();
+  sl.registerSingletonAsync<SharedPreferences>(() async {
+    final prefs = await SharedPreferences.getInstance();
     return prefs;
   });
   sl.registerLazySingleton<Dio>(() => Dio(
@@ -39,7 +41,9 @@ Future<void> setupGetIt() async {
   sl.registerSingleton<RecipeDatasource>(RestRecipeDatasource(sl<Dio>()));
   sl.registerLazySingleton<RecipeRepository>(() => RecipeRepository(sl()));
   await sl.isReady<SharedPreferences>();
-  sl.registerLazySingleton<TokenStorage>(() => SharedPrefTokenStorage(sl()));
+  sl.registerSingleton<TokenStorage>(SharedPrefTokenStorage(sl()));
+  sl.registerSingleton<OfflineDatasource>(SharedPrefOfflineDatasource(sl()));
+  sl.registerSingleton<OfflineRecipeRepository>(OfflineRecipeRepository(sl()));
 
   sl.registerSingleton<AuthDatasource>(
       RestDummyAuthDatasource(sl<Dio>(), sl()));
