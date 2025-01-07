@@ -4,11 +4,63 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 
 import '../../../../routes/auto_route_setup.gr.dart';
+import '../../../authentication/presentation/riverpod/authentication_rp.dart';
 
 @RoutePage()
-class OnboardingPage extends ConsumerWidget {
+class OnboardingPage extends ConsumerStatefulWidget {
   @override
-  Widget build(BuildContext context, ref) {
+  ConsumerState<OnboardingPage> createState() => _OnboardingPageState();
+}
+
+class _OnboardingPageState extends ConsumerState<OnboardingPage> {
+  bool isDialogOpen = false;
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(authenticationRpProvider, (prev, curr) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              'Checking login status...'))); //snackbar saying checking login status
+
+      if (curr is AsyncLoading) {
+        isDialogOpen = true;
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CircularProgressIndicator(),
+                      10.ht,
+                      Text('Please wait...'),
+                    ],
+                  ),
+                ));
+      } else if ((prev is AsyncLoading && prev != null) &&
+          (curr is AsyncError || curr is AsyncData)) {
+        if (isDialogOpen) {
+          context.maybePop();
+          isDialogOpen = false;
+        }
+        if (curr is AsyncError) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(curr.error.toString()),
+          ));
+        }
+        if (curr is AsyncData) {
+          if ((curr as AsyncData).value.hasData == true) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('Logged in'),
+            ));
+
+            context.router.popUntil((route) => route.isFirst);
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            context.replaceRoute((EntryPointRoute()));
+          }
+        }
+      }
+    });
     final theme = Theme.of(context);
     final ts = theme.textTheme;
     return Scaffold(
@@ -68,6 +120,7 @@ class OnboardingPage extends ConsumerWidget {
                 height: 50,
                 child: OutlinedButton(
                   onPressed: () async {
+                    ref.invalidate(authenticationRpProvider);
                     //ref.read(authenticationRpProvider.notifier).build();
                     context.router.push(
                       LoginRoute(),
