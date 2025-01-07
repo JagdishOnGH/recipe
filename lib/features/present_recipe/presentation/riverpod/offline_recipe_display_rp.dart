@@ -16,3 +16,7 @@ final recipeIsSavedProvider =
   final OfflineRecipeRepository recipeRepo = sl();
   return await recipeRepo.hasRecipe(id);
 });
+
+final internetConnectionProvider = StreamProvider((ref) {
+  return InternetConnection().onStatusChange;
+});
