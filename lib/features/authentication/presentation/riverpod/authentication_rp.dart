@@ -14,7 +14,6 @@ class AuthenticationRp extends AsyncNotifier<DataPlaceHolder<String>> {
   Future<DataPlaceHolder<String>> build() async {
     state = AsyncLoading();
     final token = await _authRepository.loginStatus();
-
     return DataPlaceHolder(data: token);
   }
 
