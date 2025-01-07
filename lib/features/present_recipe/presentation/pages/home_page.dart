@@ -2,9 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_app/exceptions/app_global_exception.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../extensions/error_widget.dart';
 import '../../../../helper/placeholder_class.dart';
 import '../../../../routes/auto_route_setup.gr.dart';
 import '../../../authentication/presentation/riverpod/authentication_rp.dart';
@@ -182,13 +184,13 @@ class HomePage extends ConsumerWidget {
                                   ),
                                 ),
                               ),
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.favorite_border),
-                                ),
-                              ),
+                              // Align(
+                              //   alignment: Alignment.topRight,
+                              //   child: IconButton(
+                              //     onPressed: () {},
+                              //     icon: const Icon(Icons.favorite_border),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
