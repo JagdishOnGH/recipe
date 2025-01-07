@@ -20,11 +20,16 @@ class RestRecipeDatasource implements RecipeDatasource {
 
   @override
   Future<RecipeList> getRecipes({int limit = 10, int offset = 1}) async {
-    final RECIPE_URL = '$BASE_URL/recipes?limit=$limit&skip=$offset';
-    final request = await _dio.get(RECIPE_URL);
-    final RecipeList convertedResponse = RecipeList.fromJson(request.data);
+    try {
+      final RECIPE_URL = '$BASE_URL/recipes?limit=$limit&skip=$offset';
+      final request = await _dio.get(RECIPE_URL);
+      final RecipeList convertedResponse = RecipeList.fromJson(request.data);
 
-    return convertedResponse;
+      return convertedResponse;
+    } on DioException catch (e) {
+      final ex = handleDioException(e);
+      throw AppGlobalException(ex);
+    }
   }
 
   Future<RecipeList> searchRecipes(String query,

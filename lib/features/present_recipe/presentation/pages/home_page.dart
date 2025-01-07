@@ -47,6 +47,7 @@ class HomePage extends ConsumerWidget {
         ),
         body: SafeArea(
             child: recipeList.when(
+                skipLoadingOnReload: false,
                 data: (data) {
                   if (!data.hasData) return Text("No Data Found");
                   final actualData = data.data!;
@@ -56,7 +57,12 @@ class HomePage extends ConsumerWidget {
                         return DemoWidget(context, actualData.recipes[index]);
                       });
                 },
-                error: (e, s) => Text(e.toString()),
+                error: (e, s) => CustomErrorWidget(
+                      message: (e as AppGlobalException).message,
+                      onRetry: () {
+                        ref.invalidate(presentRecipeRpProvider);
+                      },
+                    ),
                 loading: () {
                   return ListView.builder(
                       itemCount: 5,
