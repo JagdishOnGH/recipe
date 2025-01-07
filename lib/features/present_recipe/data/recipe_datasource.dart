@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:recipe_app/exceptions/app_global_exception.dart';
+import 'package:recipe_app/extensions/dio_exception_message.dart';
 
 import '../../../constants/urls.dart';
 import '../models/recipe_model.dart';
@@ -34,10 +36,15 @@ class RestRecipeDatasource implements RecipeDatasource {
 
   Future<RecipeList> searchRecipes(String query,
       {int limit = 10, int offset = 1}) async {
-    final SEARCH_URL = '$BASE_URL/recipes?search=$query';
-    final request = await _dio.get(SEARCH_URL);
-    final RecipeList convertedResponse = RecipeList.fromJson(request.data);
+    try {
+      final SEARCH_URL = '$BASE_URL/recipes?search=$query';
+      final request = await _dio.get(SEARCH_URL);
+      final RecipeList convertedResponse = RecipeList.fromJson(request.data);
 
-    return convertedResponse;
+      return convertedResponse;
+    } on DioException catch (e) {
+      final ex = handleDioException(e);
+      throw AppGlobalException(ex);
+    }
   }
 }
