@@ -3,12 +3,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
-import 'package:recipe_app/features/authentication/presentation/pages/login_page.dart';
 import 'package:recipe_app/features/present_recipe/presentation/comps/instruction_widgets.dart';
-import 'package:recipe_app/features/present_recipe/repository/offline_recipe_repository.dart';
 
-import '../../../../di/getit_setup.dart';
 import '../../../../extensions/riverpod_builder.dart';
+import '../../../authentication/presentation/pages/login_page.dart';
 import '../../models/recipe_model.dart';
 import '../riverpod/offline_recipe_display_rp.dart';
 import 'home_page.dart';
@@ -27,14 +25,57 @@ class RecipeDetailPage extends StatelessWidget {
         floatingActionButton: RiverpodBuilder(builder: (context, ref) {
           final status = ref.watch(recipeIsSavedProvider(recipe.id));
           return FloatingActionButton(
-              onPressed: () {
-                if (status.hasValue && status.asData! != true) {
-                  final OfflineRecipeRepository repo = sl();
-
-                  repo.saveRecipe(recipe);
-                  ref.invalidate(recipeIsSavedProvider(recipe.id));
-                }
-              },
+              onPressed: status is! AsyncData
+                  ? null
+                  : () async {
+                      if ((status).value == false) {
+                        await showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                  title: Text('Save Recipe'),
+                                  content:
+                                      Text(" Do you want to save this recipe?"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        ref.read(saveRecipe(recipe));
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('OK'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('Cancel'),
+                                    ),
+                                  ],
+                                ));
+                      } else if ((status).value == true) {
+                        await showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                  title: Text('Delete Recipe'),
+                                  content: Text(
+                                      "Do you want to delete this recipe?"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        ref.read(deleteRecipe(recipe));
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('OK'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('Cancel'),
+                                    ),
+                                  ],
+                                ));
+                      }
+                    },
               child: status.when(
                 skipLoadingOnReload: false,
                 data: (data) {
