@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
-import 'package:recipe_app/features/present_recipe/presentation/comps/instruction_widgets.dart';
+import 'package:recipe_app/features/present_recipe/presentation/comps/instruction_comp.dart';
 import 'package:recipe_app/features/present_recipe/presentation/riverpod/offline_recipe_rp.dart';
 
 import '../../../../extensions/riverpod_builder.dart';
