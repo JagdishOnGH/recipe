@@ -4,14 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/exceptions/app_global_exception.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 import 'package:shimmer/shimmer.dart';
+
 import '../../../../extensions/error_widget.dart';
 import '../../../../helper/placeholder_class.dart';
 import '../../../../routes/auto_route_setup.gr.dart';
 import '../../../authentication/presentation/riverpod/authentication_rp.dart';
-import '../comps/display_recipe_comp.dart';
+import '../components/display_recipe_comp.dart';
 import '../riverpod/present_recipe_rp.dart';
 
-part '../comps/icon_info_comp.dart';
+part '../components//icon_info_comp.dart';
 
 @RoutePage()
 class HomePage extends ConsumerWidget {
