@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 import 'package:recipe_app/features/present_recipe/presentation/comps/instruction_widgets.dart';
+import 'package:recipe_app/features/present_recipe/presentation/riverpod/offline_recipe_rp.dart';
 
 import '../../../../extensions/riverpod_builder.dart';
 import '../../../authentication/presentation/pages/login_page.dart';
 import '../../models/recipe_model.dart';
-import '../riverpod/offline_recipe_display_rp.dart';
 import 'home_page.dart';
 
 @RoutePage()
@@ -23,12 +23,15 @@ class RecipeDetailPage extends StatelessWidget {
       length: 3,
       child: Scaffold(
         floatingActionButton: RiverpodBuilder(builder: (context, ref) {
-          final status = ref.watch(recipeIsSavedProvider(recipe.id));
+          final result = ref.watch(cachedRecipeProvider);
           return FloatingActionButton(
-              onPressed: status is! AsyncData
+              onPressed: result is! AsyncData
                   ? null
                   : () async {
-                      if ((status).value == false) {
+                      final resultData = (result as AsyncData<List<Recipe>>);
+
+                      if (!resultData.value
+                          .any((value) => value.id == recipe.id)) {
                         await showDialog(
                             context: context,
                             builder: (_) => AlertDialog(
@@ -38,7 +41,10 @@ class RecipeDetailPage extends StatelessWidget {
                                   actions: [
                                     TextButton(
                                       onPressed: () {
-                                        ref.read(saveRecipe(recipe));
+                                        // ref.read(saveRecipe(recipe));
+                                        ref
+                                            .read(cachedRecipeProvider.notifier)
+                                            .saveRecipe(recipe);
                                         Navigator.of(context).pop();
                                       },
                                       child: Text('OK'),
@@ -51,7 +57,7 @@ class RecipeDetailPage extends StatelessWidget {
                                     ),
                                   ],
                                 ));
-                      } else if ((status).value == true) {
+                      } else {
                         await showDialog(
                             context: context,
                             builder: (_) => AlertDialog(
@@ -61,7 +67,10 @@ class RecipeDetailPage extends StatelessWidget {
                                   actions: [
                                     TextButton(
                                       onPressed: () {
-                                        ref.read(deleteRecipe(recipe));
+                                        ref
+                                            .read(cachedRecipeProvider.notifier)
+                                            .removeRecipe(recipe);
+
                                         Navigator.of(context).pop();
                                       },
                                       child: Text('OK'),
@@ -76,10 +85,10 @@ class RecipeDetailPage extends StatelessWidget {
                                 ));
                       }
                     },
-              child: status.when(
+              child: result.when(
                 skipLoadingOnReload: false,
                 data: (data) {
-                  return Icon(data
+                  return Icon(data.any((value) => value.id == recipe.id)
                       ? Icons.delete_forever_outlined
                       : Icons.download_outlined);
                 },
