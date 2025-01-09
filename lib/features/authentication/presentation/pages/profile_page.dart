@@ -5,6 +5,7 @@ import 'package:recipe_app/exceptions/app_global_exception.dart';
 import 'package:recipe_app/features/authentication/presentation/riverpod/profile_displayer_rp.dart';
 
 import '../../../../extensions/error_widget.dart';
+import '../components/logout_comp.dart';
 
 @RoutePage()
 class ProfilePage extends ConsumerWidget {
@@ -15,6 +16,9 @@ class ProfilePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
+        actions: [
+          LogoutComp(),
+        ],
       ),
       body: profileData.when(
           skipLoadingOnRefresh: false,

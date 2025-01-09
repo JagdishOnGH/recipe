@@ -6,13 +6,12 @@ import 'package:recipe_app/extensions/on_num.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../extensions/error_widget.dart';
-import '../../../../helper/placeholder_class.dart';
 import '../../../../routes/auto_route_setup.gr.dart';
 import '../../../authentication/presentation/riverpod/authentication_rp.dart';
 import '../components/display_recipe_comp.dart';
 import '../riverpod/present_recipe_rp.dart';
 
-part '../components//icon_info_comp.dart';
+part '../components/icon_info_comp.dart';
 
 @RoutePage()
 class HomePage extends ConsumerWidget {
@@ -25,21 +24,6 @@ class HomePage extends ConsumerWidget {
         appBar: AppBar(
           title: const Text("Recipes"),
           actions: [
-            watchAuthentication.hasValue &&
-                    (watchAuthentication as AsyncData<DataPlaceHolder>)
-                            .value
-                            .data !=
-                        null
-                ? IconButton(
-                    onPressed: () {
-                      ref.read(authenticationRpProvider.notifier).logout();
-                    },
-                    icon: const Icon(Icons.logout))
-                : IconButton(
-                    onPressed: () {
-                      context.router.push(LoginRoute());
-                    },
-                    icon: const Icon(Icons.login)),
             IconButton(
                 onPressed: () {
                   context.router.push(SearchRecipeRoute());
