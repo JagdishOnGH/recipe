@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/routes/auto_route_setup.dart';
 import 'package:recipe_app/themes/button_theme.dart';
 import 'package:recipe_app/themes/chip_theme.dart';
@@ -11,7 +12,13 @@ void main() async {
   await setupGetIt();
 
   runApp(ProviderScope(
-    child: MyApp(),
+    child: ScreenUtilInit(
+        child: MyApp(),
+        minTextAdapt: true,
+        designSize: const Size(390, 797),
+        builder: (context, child) {
+          return child!;
+        }),
   ));
 }
 

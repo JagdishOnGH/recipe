@@ -120,7 +120,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                 height: 50,
                 child: OutlinedButton(
                   onPressed: () async {
-                    ref.invalidate(authenticationRpProvider);
+                    // ref.invalidate(authenticationRpProvider);
                     //ref.read(authenticationRpProvider.notifier).build();
                     context.router.push(
                       LoginRoute(),
