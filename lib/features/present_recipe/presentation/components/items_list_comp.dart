@@ -15,7 +15,7 @@ class ItemsComp extends StatelessWidget {
         height: 230,
         width: 175,
         decoration: BoxDecoration(
-          color: theme.primaryColor.withValues(alpha: 0.2),
+          color: Colors.amber.shade200.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -24,11 +24,14 @@ class ItemsComp extends StatelessWidget {
             SizedBox(
               height: 150,
               width: double.infinity,
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl:
-                    "https://static.vecteezy.com/system/resources/previews/036/499/568/non_2x/snack-mini-pizza-with-sausages-tomato-and-cheese-on-a-wooden-board-top-and-vertical-view-photo.jpg",
-                cacheKey: "recipe-image-1",
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  imageUrl:
+                      "https://static.vecteezy.com/system/resources/previews/036/499/568/non_2x/snack-mini-pizza-with-sausages-tomato-and-cheese-on-a-wooden-board-top-and-vertical-view-photo.jpg",
+                  cacheKey: "recipe-image-1",
+                ),
               ),
             ),
             10.ht,
@@ -39,11 +42,24 @@ class ItemsComp extends StatelessWidget {
               style: ts.titleSmall,
             ),
             5.ht,
-            Text(
-              "Italian",
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: ts.bodyMedium,
+            Row(
+              spacing: 20,
+              children: [
+                Expanded(
+                  child: Text(
+                    "Italian",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: ts.bodyMedium,
+                  ),
+                ),
+                Text(
+                  "5 min",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: ts.bodyMedium,
+                ),
+              ],
             ),
           ],
         ));

@@ -30,12 +30,17 @@ class HomeNPage2 extends StatelessWidget {
                 ),
               ),
             ),
-            20.ht,
-            Text(
-              "Delicious recipes at your fingertips, anytime, anywhere!",
-              style: ts.bodyLarge?.copyWith(color: Colors.amber.shade900),
+            30.ht,
+            Center(
+              child: Text(
+                "Delicious recipes at your fingertips, anytime, anywhere!",
+                style: ts.titleMedium
+                    ?.copyWith(color: Colors.amber.shade900, fontSize: 13),
+              ),
             ),
             20.ht,
+            Divider(),
+            10.ht,
             SuggestedCuisineComp(
               suggestedCuisine: [
                 "Spanish",
@@ -55,12 +60,37 @@ class HomeNPage2 extends StatelessWidget {
                     color: Colors.black54,
                     fontSize: 18)),
             10.ht,
-            Wrap(
-              children: [
-                ItemsComp(),
-                ItemsComp(),
-              ],
-            )
+            SizedBox(
+              height: 233,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  ItemsComp(),
+                  ItemsComp(),
+                  ItemsComp(),
+                  ItemsComp(),
+                ],
+              ),
+            ),
+            20.ht,
+            Text("Popular Recipes",
+                style: ts.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54,
+                    fontSize: 18)),
+            10.ht,
+            SizedBox(
+              height: 233,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  ItemsComp(),
+                  ItemsComp(),
+                  ItemsComp(),
+                  ItemsComp(),
+                ],
+              ),
+            ),
           ],
         ));
   }
