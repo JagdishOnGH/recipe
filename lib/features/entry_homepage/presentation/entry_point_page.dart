@@ -11,7 +11,7 @@ class EntryPointPage extends StatelessWidget {
     return AutoTabsScaffold(
       //  homeIndex: 0,
       routes: const [
-        HomeRoute(),
+        RecipeShimmerRoute(),
         HomeNRoute2(),
         OfflineShowRoute(),
         ProfileRoute()

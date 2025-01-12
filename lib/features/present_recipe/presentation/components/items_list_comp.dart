@@ -12,23 +12,24 @@ class ItemsComp extends StatelessWidget {
     return Container(
         margin: EdgeInsets.only(right: 10),
         padding: EdgeInsets.all(8),
-        height: 230,
-        width: 175,
+        height: 100,
+        width: 150,
         decoration: BoxDecoration(
           color: Colors.amber.shade200.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 150,
+              height: 130,
               width: double.infinity,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
-                  useOldImageOnUrlChange: true,
+                  // useOldImageOnUrlChange: true,
                   imageUrl:
                       "https://static.vecteezy.com/system/resources/previews/036/499/568/non_2x/snack-mini-pizza-with-sausages-tomato-and-cheese-on-a-wooden-board-top-and-vertical-view-photo.jpg",
                   cacheKey: "recipe-image-1",

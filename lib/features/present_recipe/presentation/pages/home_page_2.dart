@@ -16,21 +16,29 @@ class HomeNPage2 extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Recipes"),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.notifications,
+              ),
+              enableFeedback: true,
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.more_vert),
+              onPressed: () {},
+            ),
+          ],
         ),
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           children: [
             Row(),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Search",
-                suffixIcon: InkWell(
-                  child: Icon(Icons.search),
-                  onTap: () {},
-                ),
-              ),
-            ),
-            30.ht,
+            10.ht,
             Center(
               child: Text(
                 "Delicious recipes at your fingertips, anytime, anywhere!",
@@ -54,14 +62,26 @@ class HomeNPage2 extends StatelessWidget {
               child: Text("Do You Know? You can save recipe to view offline"),
             ),
             30.ht,
-            Text("For You",
-                style: ts.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black54,
-                    fontSize: 18)),
+            Row(
+              children: [
+                Text("For You",
+                    style: ts.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54,
+                        fontSize: 18)),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 1.0),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    size: 25,
+                  ),
+                )
+              ],
+            ),
             10.ht,
             SizedBox(
-              height: 233,
+              height: 210,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
@@ -92,7 +112,7 @@ class HomeNPage2 extends StatelessWidget {
             ),
             10.ht,
             SizedBox(
-              height: 233,
+              height: 210,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
