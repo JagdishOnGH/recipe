@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../routes/auto_route_setup.gr.dart';
@@ -29,20 +30,24 @@ Widget DisplayRecipeComp(BuildContext context, Recipe recipe) {
           ),
           child: Stack(
             children: [
-              CachedNetworkImage(
-                cacheKey: "recipe-image-${recipe.id}",
-                imageUrl: recipe.image,
-                width: 700,
-                height: 400,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => Center(
-                  child: Image.asset(
-                    "assets/food_placeholder.png",
-                    height: 50,
-                    width: 50,
-                  ),
-                ),
-              ),
+              !kIsWeb
+                  ? CachedNetworkImage(
+                      cacheKey: "recipe-image-${recipe.id}",
+                      imageUrl: recipe.image,
+                      width: 700,
+                      height: 400,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => Center(
+                        child: Image.asset(
+                          "assets/food_placeholder.png",
+                          height: 50,
+                          width: 50,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      height: 400,
+                    ),
               SizedBox(
                 height: 400,
                 child: Column(

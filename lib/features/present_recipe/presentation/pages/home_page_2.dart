@@ -73,11 +73,23 @@ class HomeNPage2 extends StatelessWidget {
               ),
             ),
             20.ht,
-            Text("Popular Recipes",
-                style: ts.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black54,
-                    fontSize: 18)),
+            Row(
+              children: [
+                Text("Popular Recipes",
+                    style: ts.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54,
+                        fontSize: 18)),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 1.0),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    size: 25,
+                  ),
+                )
+              ],
+            ),
             10.ht,
             SizedBox(
               height: 233,

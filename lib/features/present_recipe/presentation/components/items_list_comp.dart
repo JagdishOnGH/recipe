@@ -28,6 +28,7 @@ class ItemsComp extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
+                  useOldImageOnUrlChange: true,
                   imageUrl:
                       "https://static.vecteezy.com/system/resources/previews/036/499/568/non_2x/snack-mini-pizza-with-sausages-tomato-and-cheese-on-a-wooden-board-top-and-vertical-view-photo.jpg",
                   cacheKey: "recipe-image-1",
