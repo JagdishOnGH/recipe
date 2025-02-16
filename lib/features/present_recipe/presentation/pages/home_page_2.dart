@@ -81,7 +81,7 @@ class HomeNPage2 extends StatelessWidget {
             ),
             10.ht,
             SizedBox(
-              height: 210,
+              height: 195,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [

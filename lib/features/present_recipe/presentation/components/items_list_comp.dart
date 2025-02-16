@@ -12,7 +12,7 @@ class ItemsComp extends StatelessWidget {
     return Container(
         margin: EdgeInsets.only(right: 10),
         padding: EdgeInsets.all(8),
-        height: 100,
+        height: 85,
         width: 150,
         decoration: BoxDecoration(
           color: Colors.amber.shade200.withValues(alpha: 0.2),
@@ -23,7 +23,7 @@ class ItemsComp extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 130,
+              height: 120,
               width: double.infinity,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
@@ -37,12 +37,12 @@ class ItemsComp extends StatelessWidget {
               ),
             ),
             10.ht,
-            Text(
-              "Aloo Bhujiya",
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: ts.titleSmall,
-            ),
+            Text("Aloo Bhujiya",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: ts.titleSmall?.copyWith(
+                  color: theme.primaryColor,
+                )),
             5.ht,
             Row(
               spacing: 20,
@@ -55,11 +55,17 @@ class ItemsComp extends StatelessWidget {
                     style: ts.bodyMedium,
                   ),
                 ),
-                Text(
-                  "5 min",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: ts.bodyMedium,
+                Row(
+                  spacing: 5,
+                  children: [
+                    Icon(Icons.alarm, size: 15, color: theme.primaryColor),
+                    Text(
+                      "5 min",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: ts.bodyMedium,
+                    ),
+                  ],
                 ),
               ],
             ),

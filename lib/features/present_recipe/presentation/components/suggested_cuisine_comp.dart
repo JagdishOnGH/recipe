@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SuggestedCuisineComp extends StatelessWidget {
   final List<String> suggestedCuisine;
   final String image =
-      "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1214757157.png";
+      "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
   SuggestedCuisineComp({super.key, required this.suggestedCuisine}) {
     if (suggestedCuisine.length > 4)
@@ -38,7 +38,7 @@ class SuggestedCuisineComp extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 7, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.black.withValues(alpha: 0.7),
+              color: Colors.deepOrange.withValues(alpha: 0.7),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
