@@ -8,19 +8,6 @@ class RecipeShimmerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Recipes'),
-        actions: [
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
-          IconButton(
-              icon: Badge(
-                child: Icon(Icons.notifications),
-                label: Text('3'),
-              ),
-              onPressed: () {}),
-          PopupMenuButton(itemBuilder: (context) => []),
-        ],
-      ),
       body: ListView(
         children: [
           Padding(
