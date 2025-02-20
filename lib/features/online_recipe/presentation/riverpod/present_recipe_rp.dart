@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:recipe_app/di/getit_setup.dart';
-import 'package:recipe_app/features/present_recipe/models/recipe_model.dart';
-import 'package:recipe_app/features/present_recipe/repository/recipe_repository.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../../../../helper/placeholder_class.dart';
+import '../../models/recipe_model.dart';
+import '../../repository/recipe_repository.dart';
 
-class PresentRecipeRp extends AsyncNotifier<DataPlaceHolder<RecipeList>> {
+class OnlineRecipeAsyncNotifier
+    extends AsyncNotifier<DataPlaceHolder<RecipeList>> {
   final RecipeRepository _recipeRepository = sl<RecipeRepository>();
 
   @override
@@ -24,7 +25,7 @@ class PresentRecipeRp extends AsyncNotifier<DataPlaceHolder<RecipeList>> {
   }
 }
 
-final presentRecipeRpProvider =
-    AsyncNotifierProvider<PresentRecipeRp, DataPlaceHolder<RecipeList>>(
-  () => PresentRecipeRp(),
+final onlineRecipeAsyncProvider = AsyncNotifierProvider<
+    OnlineRecipeAsyncNotifier, DataPlaceHolder<RecipeList>>(
+  () => OnlineRecipeAsyncNotifier(),
 );

@@ -4,13 +4,13 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:recipe_app/constants/urls.dart';
 import 'package:recipe_app/features/authentication/data/token_storage.dart';
 import 'package:recipe_app/features/authentication/repository/auth_repository.dart';
-import 'package:recipe_app/features/present_recipe/repository/offline_recipe_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../features/authentication/data/auth_datasource.dart';
-import '../features/present_recipe/data/offline_datasource.dart';
-import '../features/present_recipe/data/recipe_datasource.dart';
-import '../features/present_recipe/repository/recipe_repository.dart';
+import '../features/offline_recipe/data/offline_datasource.dart';
+import '../features/offline_recipe/repository/offline_recipe_repository.dart';
+import '../features/online_recipe/data/recipe_datasource.dart';
+import '../features/online_recipe/repository/recipe_repository.dart';
 
 final sl = GetIt.instance;
 

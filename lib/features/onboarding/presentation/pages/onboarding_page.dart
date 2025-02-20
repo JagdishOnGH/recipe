@@ -17,7 +17,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(authenticationRpProvider, (prev, curr) {
+    ref.listen(authenticationAsyncStateProvider, (prev, curr) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
               'Checking login status...'))); //snackbar saying checking login status

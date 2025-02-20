@@ -7,7 +7,8 @@ import 'package:recipe_app/helper/placeholder_class.dart';
 import '../../../../di/getit_setup.dart';
 import '../../../../exceptions/app_global_exception.dart';
 
-class AuthenticationRp extends AsyncNotifier<DataPlaceHolder<String>> {
+class AuthenticationAsyncNotifier
+    extends AsyncNotifier<DataPlaceHolder<String>> {
   final AuthRepository _authRepository = sl<AuthRepository>();
 
   @override
@@ -83,7 +84,7 @@ class AuthenticationRp extends AsyncNotifier<DataPlaceHolder<String>> {
   }
 }
 
-final authenticationRpProvider =
-    AsyncNotifierProvider<AuthenticationRp, DataPlaceHolder<String>>(
-  () => AuthenticationRp(),
+final authenticationAsyncStateProvider =
+    AsyncNotifierProvider<AuthenticationAsyncNotifier, DataPlaceHolder<String>>(
+  () => AuthenticationAsyncNotifier(),
 );

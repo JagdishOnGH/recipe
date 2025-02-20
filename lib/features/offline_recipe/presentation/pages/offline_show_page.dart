@@ -2,10 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/riverpod_builder.dart';
-import 'package:recipe_app/features/present_recipe/presentation/riverpod/offline_recipe_rp.dart';
 
 import '../../../../routes/auto_route_setup.gr.dart';
-import '../components/offline_items_comp.dart';
+import '../../../online_recipe/presentation/components/offline_items_comp.dart';
+import '../riverpod/offline_recipe_rp.dart';
 
 @RoutePage()
 class OfflineShowPage extends StatelessWidget {
@@ -47,7 +47,7 @@ class OfflineShowPage extends StatelessWidget {
         children: [
           Expanded(
             child: RiverpodBuilder(builder: (ctx, ref) {
-              final recipes = ref.watch(cachedRecipeProvider);
+              final recipes = ref.watch(offlineRecipeAsyncProvider);
               return recipes.when(
                   data: (data) {
                     return GridView.builder(

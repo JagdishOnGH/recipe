@@ -10,7 +10,7 @@ import '../../../../di/getit_setup.dart';
 AutoDisposeFutureProvider<UserModel> profileInformationProvider =
     FutureProvider.autoDispose((ref) async {
   final AsyncValue<DataPlaceHolder<String>> authState =
-      ref.watch(authenticationRpProvider);
+      ref.watch(authenticationAsyncStateProvider);
   if (authState.hasValue && authState.asData != null) {
     final AuthRepository authRepo = sl();
     AsyncLoading();

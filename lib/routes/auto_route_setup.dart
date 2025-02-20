@@ -49,7 +49,7 @@ class AuthRouteGuard extends AutoRouteGuard {
   Future<void> onNavigation(
       NavigationResolver resolver, StackRouter router) async {
     final AsyncValue<DataPlaceHolder<String>> result =
-        ref.read(authenticationRpProvider);
+        ref.read(authenticationAsyncStateProvider);
     if (result is AsyncData && result.value?.data != null) {
       resolver.next(true);
     } else {

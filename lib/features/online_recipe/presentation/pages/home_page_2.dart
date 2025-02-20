@@ -1,8 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/extensions/on_num.dart';
-import 'package:recipe_app/features/present_recipe/presentation/components/items_list_comp.dart';
 
+import '../components/items_list_comp.dart';
 import '../components/suggested_cuisine_comp.dart';
 
 ///USED HARDCODED [COLORS]

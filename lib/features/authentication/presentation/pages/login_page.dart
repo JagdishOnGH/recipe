@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:recipe_app/extensions/on_num.dart';
-import 'package:recipe_app/features/present_recipe/presentation/riverpod/present_recipe_rp.dart';
 
 import '../../../../extensions/riverpod_builder.dart';
+import '../../../online_recipe/presentation/riverpod/present_recipe_rp.dart';
 import '../riverpod/authentication_rp.dart';
 
 final logger = Logger();
@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
               child: RiverpodBuilder(builder: (context, ref) {
                 return FilledButton(
                   onPressed: () {
-                    ref.read(authenticationRpProvider.notifier).login(
+                    ref.read(authenticationAsyncStateProvider.notifier).login(
                         _usernameController.text, _passwordController.text);
                   },
                   child: const Text('Login'),
@@ -124,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                 RiverpodBuilder(builder: (context, ref) {
                   return TextButton(
                     onPressed: () {
-                      ref.invalidate(presentRecipeRpProvider);
+                      ref.invalidate(onlineRecipeAsyncProvider);
                     },
                     child: const Text('Sign Up'),
                   );

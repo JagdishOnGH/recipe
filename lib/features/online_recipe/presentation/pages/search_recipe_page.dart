@@ -12,7 +12,7 @@ class SearchRecipePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final searchProvider = ref.watch(searchRecipeRpProvider);
+    final searchProvider = ref.watch(searchRecipeAsyncProvider);
     return Scaffold(
         appBar: AppBar(
           title: Text('Search Recipe'),
@@ -26,7 +26,7 @@ class SearchRecipePage extends ConsumerWidget {
                 onSubmitted: (value) {
                   FocusScope.of(context).unfocus();
                   ref
-                      .read(searchRecipeRpProvider.notifier)
+                      .read(searchRecipeAsyncProvider.notifier)
                       .searchRecipes(value);
 
                   //hide keyboard
@@ -41,7 +41,7 @@ class SearchRecipePage extends ConsumerWidget {
                     onPressed: () {
                       final text = _searchController.text;
                       ref
-                          .read(searchRecipeRpProvider.notifier)
+                          .read(searchRecipeAsyncProvider.notifier)
                           .searchRecipes(text);
                       FocusScope.of(context).unfocus();
                     },

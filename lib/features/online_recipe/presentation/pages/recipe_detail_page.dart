@@ -3,10 +3,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
-import 'package:recipe_app/features/present_recipe/presentation/riverpod/offline_recipe_rp.dart';
 
 import '../../../../extensions/riverpod_builder.dart';
 import '../../../authentication/presentation/pages/login_page.dart';
+import '../../../offline_recipe/presentation/riverpod/offline_recipe_rp.dart';
 import '../../models/recipe_model.dart';
 import '../components/instruction_comp.dart';
 import 'home_page.dart';
@@ -23,7 +23,7 @@ class RecipeDetailPage extends StatelessWidget {
       length: 3,
       child: Scaffold(
         floatingActionButton: RiverpodBuilder(builder: (context, ref) {
-          final result = ref.watch(cachedRecipeProvider);
+          final result = ref.watch(offlineRecipeAsyncProvider);
           return FloatingActionButton(
               onPressed: result is! AsyncData
                   ? null
@@ -43,7 +43,8 @@ class RecipeDetailPage extends StatelessWidget {
                                       onPressed: () {
                                         // ref.read(saveRecipe(recipe));
                                         ref
-                                            .read(cachedRecipeProvider.notifier)
+                                            .read(offlineRecipeAsyncProvider
+                                                .notifier)
                                             .saveRecipe(recipe);
                                         Navigator.of(context).pop();
                                       },
@@ -68,7 +69,8 @@ class RecipeDetailPage extends StatelessWidget {
                                     TextButton(
                                       onPressed: () {
                                         ref
-                                            .read(cachedRecipeProvider.notifier)
+                                            .read(offlineRecipeAsyncProvider
+                                                .notifier)
                                             .removeRecipe(recipe);
 
                                         Navigator.of(context).pop();

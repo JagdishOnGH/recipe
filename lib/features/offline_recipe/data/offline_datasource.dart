@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:recipe_app/exceptions/app_global_exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/recipe_model.dart';
+import '../../online_recipe/models/recipe_model.dart';
 
 abstract class OfflineDatasource {
   Future<void> saveRecipe(Recipe recipe);
