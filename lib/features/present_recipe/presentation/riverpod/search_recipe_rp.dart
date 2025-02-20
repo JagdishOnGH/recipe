@@ -7,7 +7,8 @@ import '../../../../helper/placeholder_class.dart';
 import '../../models/recipe_model.dart';
 import '../../repository/recipe_repository.dart';
 
-class SearchRecipeRp extends AsyncNotifier<DataPlaceHolder<RecipeList>> {
+class SearchRecipeAsyncNotifier
+    extends AsyncNotifier<DataPlaceHolder<RecipeList>> {
   final recipeRepository = sl<RecipeRepository>();
 
   @override
@@ -30,7 +31,7 @@ class SearchRecipeRp extends AsyncNotifier<DataPlaceHolder<RecipeList>> {
 }
 
 //auto dispose provider
-final searchRecipeRpProvider =
-    AsyncNotifierProvider<SearchRecipeRp, DataPlaceHolder<RecipeList>>(
-  () => SearchRecipeRp(),
+final searchRecipeAsyncProvider = AsyncNotifierProvider<
+    SearchRecipeAsyncNotifier, DataPlaceHolder<RecipeList>>(
+  () => SearchRecipeAsyncNotifier(),
 );

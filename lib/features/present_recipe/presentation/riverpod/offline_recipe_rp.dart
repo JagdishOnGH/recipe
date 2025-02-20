@@ -6,7 +6,7 @@ import 'package:recipe_app/features/present_recipe/repository/offline_recipe_rep
 
 import '../../../../di/getit_setup.dart';
 
-class OfflineRecipeProvider extends AsyncNotifier<List<Recipe>> {
+class OfflineRecipeAsyncNotifier extends AsyncNotifier<List<Recipe>> {
   final OfflineRecipeRepository _localRecipeRepo = sl();
 
   @override
@@ -38,6 +38,6 @@ class OfflineRecipeProvider extends AsyncNotifier<List<Recipe>> {
 
 //AsyncNotifierProvider
 
-final cachedRecipeProvider =
-    AsyncNotifierProvider<OfflineRecipeProvider, List<Recipe>>(
-        () => OfflineRecipeProvider());
+final offlineRecipeAsyncProvider =
+    AsyncNotifierProvider<OfflineRecipeAsyncNotifier, List<Recipe>>(
+        () => OfflineRecipeAsyncNotifier());

@@ -19,7 +19,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final ts = Theme.of(context).textTheme;
-    final recipeList = ref.watch(presentRecipeRpProvider);
+    final recipeList = ref.watch(onlineRecipeAsyncProvider);
     final watchAuthentication = ref.watch(authenticationAsyncStateProvider);
 
     return Scaffold(
@@ -134,7 +134,7 @@ class HomePage extends ConsumerWidget {
                 error: (e, s) => CustomErrorWidget(
                       message: (e as AppGlobalException).message,
                       onRetry: () {
-                        ref.invalidate(presentRecipeRpProvider);
+                        ref.invalidate(onlineRecipeAsyncProvider);
                       },
                     ),
                 loading: () {

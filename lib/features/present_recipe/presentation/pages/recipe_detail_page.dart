@@ -23,7 +23,7 @@ class RecipeDetailPage extends StatelessWidget {
       length: 3,
       child: Scaffold(
         floatingActionButton: RiverpodBuilder(builder: (context, ref) {
-          final result = ref.watch(cachedRecipeProvider);
+          final result = ref.watch(offlineRecipeAsyncProvider);
           return FloatingActionButton(
               onPressed: result is! AsyncData
                   ? null
@@ -43,7 +43,8 @@ class RecipeDetailPage extends StatelessWidget {
                                       onPressed: () {
                                         // ref.read(saveRecipe(recipe));
                                         ref
-                                            .read(cachedRecipeProvider.notifier)
+                                            .read(offlineRecipeAsyncProvider
+                                                .notifier)
                                             .saveRecipe(recipe);
                                         Navigator.of(context).pop();
                                       },
@@ -68,7 +69,8 @@ class RecipeDetailPage extends StatelessWidget {
                                     TextButton(
                                       onPressed: () {
                                         ref
-                                            .read(cachedRecipeProvider.notifier)
+                                            .read(offlineRecipeAsyncProvider
+                                                .notifier)
                                             .removeRecipe(recipe);
 
                                         Navigator.of(context).pop();

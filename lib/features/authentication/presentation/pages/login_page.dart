@@ -124,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                 RiverpodBuilder(builder: (context, ref) {
                   return TextButton(
                     onPressed: () {
-                      ref.invalidate(presentRecipeRpProvider);
+                      ref.invalidate(onlineRecipeAsyncProvider);
                     },
                     child: const Text('Sign Up'),
                   );

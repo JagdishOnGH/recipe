@@ -47,7 +47,7 @@ class OfflineShowPage extends StatelessWidget {
         children: [
           Expanded(
             child: RiverpodBuilder(builder: (ctx, ref) {
-              final recipes = ref.watch(cachedRecipeProvider);
+              final recipes = ref.watch(offlineRecipeAsyncProvider);
               return recipes.when(
                   data: (data) {
                     return GridView.builder(
