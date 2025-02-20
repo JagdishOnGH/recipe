@@ -20,7 +20,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final ts = Theme.of(context).textTheme;
     final recipeList = ref.watch(presentRecipeRpProvider);
-    final watchAuthentication = ref.watch(authenticationRpProvider);
+    final watchAuthentication = ref.watch(authenticationAsyncStateProvider);
 
     return Scaffold(
         appBar: AppBar(

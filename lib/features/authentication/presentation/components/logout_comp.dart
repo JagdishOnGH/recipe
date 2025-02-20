@@ -11,13 +11,13 @@ class LogoutComp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final watchAuthentication = ref.watch(authenticationRpProvider);
+    final watchAuthentication = ref.watch(authenticationAsyncStateProvider);
     return watchAuthentication.hasValue &&
             (watchAuthentication as AsyncData<DataPlaceHolder>).value.data !=
                 null
         ? IconButton(
             onPressed: () {
-              ref.read(authenticationRpProvider.notifier).logout();
+              ref.read(authenticationAsyncStateProvider.notifier).logout();
             },
             icon: const Icon(Icons.logout))
         : IconButton(

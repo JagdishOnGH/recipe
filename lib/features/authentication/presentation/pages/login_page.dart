@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
               child: RiverpodBuilder(builder: (context, ref) {
                 return FilledButton(
                   onPressed: () {
-                    ref.read(authenticationRpProvider.notifier).login(
+                    ref.read(authenticationAsyncStateProvider.notifier).login(
                         _usernameController.text, _passwordController.text);
                   },
                   child: const Text('Login'),
