@@ -1,5 +1,5 @@
-import 'package:recipe_app/features/present_recipe/data/offline_datasource.dart';
-import 'package:recipe_app/features/present_recipe/models/recipe_model.dart';
+import '../../online_recipe/models/recipe_model.dart';
+import '../data/offline_datasource.dart';
 
 class OfflineRecipeRepository {
   final OfflineDatasource _recipeDatasource;

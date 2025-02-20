@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:recipe_app/di/getit_setup.dart';
-import 'package:recipe_app/features/present_recipe/data/offline_datasource.dart';
-import 'package:recipe_app/features/present_recipe/data/recipe_datasource.dart';
-import 'package:recipe_app/features/present_recipe/models/recipe_model.dart';
-import 'package:recipe_app/features/present_recipe/repository/offline_recipe_repository.dart';
-import 'package:recipe_app/features/present_recipe/repository/recipe_repository.dart';
+import 'package:recipe_app/features/offline_recipe/data/offline_datasource.dart';
+import 'package:recipe_app/features/offline_recipe/repository/offline_recipe_repository.dart';
+import 'package:recipe_app/features/online_recipe/data/recipe_datasource.dart';
+import 'package:recipe_app/features/online_recipe/models/recipe_model.dart';
+import 'package:recipe_app/features/online_recipe/repository/recipe_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {

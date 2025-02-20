@@ -3,10 +3,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
-import 'package:recipe_app/features/present_recipe/presentation/riverpod/offline_recipe_rp.dart';
 
 import '../../../../extensions/riverpod_builder.dart';
 import '../../../authentication/presentation/pages/login_page.dart';
+import '../../../offline_recipe/presentation/riverpod/offline_recipe_rp.dart';
 import '../../models/recipe_model.dart';
 import '../components/instruction_comp.dart';
 import 'home_page.dart';

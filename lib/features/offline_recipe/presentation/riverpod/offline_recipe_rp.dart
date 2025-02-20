@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_app/features/present_recipe/models/recipe_model.dart';
-import 'package:recipe_app/features/present_recipe/repository/offline_recipe_repository.dart';
 
 import '../../../../di/getit_setup.dart';
+import '../../../online_recipe/models/recipe_model.dart';
+import '../../repository/offline_recipe_repository.dart';
 
 class OfflineRecipeAsyncNotifier extends AsyncNotifier<List<Recipe>> {
   final OfflineRecipeRepository _localRecipeRepo = sl();
