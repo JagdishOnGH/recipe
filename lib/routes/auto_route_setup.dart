@@ -1,10 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_app/helper/placeholder_class.dart';
 import 'package:recipe_app/routes/auto_route_setup.gr.dart';
-
-import '../features/authentication/presentation/riverpod/authentication_rp.dart';
 
 @AutoRouterConfig()
 class AutoRouteSetup extends RootStackRouter {
@@ -37,25 +34,4 @@ class AutoRouteSetup extends RootStackRouter {
 
   @override
   List<AutoRouteGuard> get guards => [];
-}
-
-class AuthRouteGuard extends AutoRouteGuard {
-  BuildContext context;
-  final WidgetRef ref;
-
-  AuthRouteGuard({required this.ref, required this.context});
-
-  @override
-  Future<void> onNavigation(
-      NavigationResolver resolver, StackRouter router) async {
-    final AsyncValue<DataPlaceHolder<String>> result =
-        ref.read(authenticationAsyncStateProvider);
-    if (result is AsyncData && result.value?.data != null) {
-      resolver.next(true);
-    } else {
-      //check:
-      router.push(const LoginReminderRoute());
-      resolver.next(false);
-    }
-  }
 }

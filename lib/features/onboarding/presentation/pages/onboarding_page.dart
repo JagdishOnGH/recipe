@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 
 import '../../../../routes/auto_route_setup.gr.dart';
-import '../../../authentication/presentation/riverpod/authentication_rp.dart';
+import '../../../authentication/presentation/providers/authentication_provider.dart';
 
 @RoutePage()
 class OnboardingPage extends ConsumerStatefulWidget {
@@ -13,53 +13,29 @@ class OnboardingPage extends ConsumerStatefulWidget {
 }
 
 class _OnboardingPageState extends ConsumerState<OnboardingPage> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.refresh(authenticationProvider.notifier).localLogin();
+    });
+    super.initState();
+  }
+
   bool isDialogOpen = false;
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(authenticationAsyncStateProvider, (prev, curr) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              'Checking login status...'))); //snackbar saying checking login status
+    ref.listen(authenticationProvider, (then, now) {
+      print("IS LOADING: ${now.isLoading}");
 
-      if (curr is AsyncLoading) {
-        isDialogOpen = true;
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) => AlertDialog(
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CircularProgressIndicator(),
-                      10.ht,
-                      Text('Please wait...'),
-                    ],
-                  ),
-                ));
-      } else if ((prev is AsyncLoading && prev != null) &&
-          (curr is AsyncError || curr is AsyncData)) {
-        if (isDialogOpen) {
-          context.maybePop();
-          isDialogOpen = false;
-        }
-        if (curr is AsyncError) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(curr.error.toString()),
-          ));
-        }
-        if (curr is AsyncData) {
-          if ((curr as AsyncData).value.hasData == true) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Logged in'),
-            ));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("VALUE ${now.value}")));
+    }, onError: (err, st) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("ERR ${err}")));
 
-            context.router.popUntil((route) => route.isFirst);
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            context.replaceRoute((EntryPointRoute()));
-          }
-        }
-      }
+      print(err);
+      print(st);
     });
     final theme = Theme.of(context);
     final ts = theme.textTheme;
