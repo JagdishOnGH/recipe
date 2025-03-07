@@ -35,7 +35,8 @@ class HomePage extends ConsumerWidget {
             child: recipeList.when(
                 skipLoadingOnReload: false,
                 data: (data) {
-                  if (!data.hasData) return Text("No Data Found");
+                  if (data.data == null) return Text("No Data Found");
+                  final recipes = data.data!;
                   return ListView(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     children: [
@@ -85,47 +86,45 @@ class HomePage extends ConsumerWidget {
                       10.ht,
                       SizedBox(
                         height: 195,
-                        child: ListView(
+                        child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          children: [
-                            ItemsComp(),
-                            ItemsComp(),
-                            ItemsComp(),
-                            ItemsComp(),
-                          ],
+                          itemCount: recipes.recipes.take(5).length,
+                          itemBuilder: (context, index) {
+                            return ItemsComp(recipes.recipes[index]);
+                          },
                         ),
                       ),
                       20.ht,
-                      Row(
-                        children: [
-                          Text("Popular Recipes",
-                              style: ts.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black54,
-                                  fontSize: 18)),
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 1.0),
-                            child: Icon(
-                              Icons.arrow_forward,
-                              size: 25,
-                            ),
-                          )
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Text("Popular Recipes",
+                      //         style: ts.titleMedium?.copyWith(
+                      //             fontWeight: FontWeight.bold,
+                      //             color: Colors.black54,
+                      //             fontSize: 18)),
+                      //     const Spacer(),
+                      //     Padding(
+                      //       padding: const EdgeInsets.only(right: 1.0),
+                      //       child: Icon(
+                      //         Icons.arrow_forward,
+                      //         size: 25,
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
                       10.ht,
-                      SizedBox(
-                        height: 210,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            ItemsComp(),
-                            ItemsComp(),
-                            ItemsComp(),
-                            ItemsComp(),
-                          ],
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: 210,
+                      //   child: ListView(
+                      //     scrollDirection: Axis.horizontal,
+                      //     children: [
+                      //       ItemsComp(),
+                      //       ItemsComp(),
+                      //       ItemsComp(),
+                      //       ItemsComp(),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   );
                 },

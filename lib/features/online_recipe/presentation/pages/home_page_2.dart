@@ -2,7 +2,6 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 
-import '../components/items_list_comp.dart';
 import '../components/suggested_cuisine_comp.dart';
 
 ///USED HARDCODED [COLORS]
@@ -80,18 +79,18 @@ class HomeNPage2 extends StatelessWidget {
               ],
             ),
             10.ht,
-            SizedBox(
-              height: 195,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ItemsComp(),
-                  ItemsComp(),
-                  ItemsComp(),
-                  ItemsComp(),
-                ],
-              ),
-            ),
+            // SizedBox(
+            //   height: 195,
+            //   child: ListView(
+            //     scrollDirection: Axis.horizontal,
+            //     children: [
+            //       ItemsComp(),
+            //       ItemsComp(),
+            //       ItemsComp(),
+            //       ItemsComp(),
+            //     ],
+            //   ),
+            // ),
             20.ht,
             Row(
               children: [
@@ -111,18 +110,18 @@ class HomeNPage2 extends StatelessWidget {
               ],
             ),
             10.ht,
-            SizedBox(
-              height: 210,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ItemsComp(),
-                  ItemsComp(),
-                  ItemsComp(),
-                  ItemsComp(),
-                ],
-              ),
-            ),
+            // SizedBox(
+            //   height: 210,
+            //   child: ListView(
+            //     scrollDirection: Axis.horizontal,
+            //     children: [
+            //       ItemsComp(),
+            //       ItemsComp(),
+            //       ItemsComp(),
+            //       ItemsComp(),
+            //     ],
+            //   ),
+            // ),
           ],
         ));
   }

@@ -2,8 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/extensions/on_num.dart';
 
+import '../../models/recipe_model.dart';
+
 class ItemsComp extends StatelessWidget {
-  const ItemsComp({super.key});
+  final Recipe recipe;
+
+  const ItemsComp(
+    this.recipe, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +33,18 @@ class ItemsComp extends StatelessWidget {
               height: 120,
               width: double.infinity,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(5),
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
                   // useOldImageOnUrlChange: true,
-                  imageUrl:
-                      "https://static.vecteezy.com/system/resources/previews/036/499/568/non_2x/snack-mini-pizza-with-sausages-tomato-and-cheese-on-a-wooden-board-top-and-vertical-view-photo.jpg",
-                  cacheKey: "recipe-image-1",
+                  imageUrl: recipe.image,
+                  cacheKey: "recipe-image-${recipe.id}",
                 ),
               ),
             ),
             10.ht,
-            Text("Aloo Bhujiya",
-                maxLines: 2,
+            Text(recipe.name,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: ts.titleSmall?.copyWith(
                   color: theme.primaryColor,
@@ -49,23 +55,11 @@ class ItemsComp extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    "Italian",
+                    recipe.cuisine,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: ts.bodyMedium,
                   ),
-                ),
-                Row(
-                  spacing: 5,
-                  children: [
-                    Icon(Icons.alarm, size: 15, color: theme.primaryColor),
-                    Text(
-                      "5 min",
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: ts.bodyMedium,
-                    ),
-                  ],
                 ),
               ],
             ),
