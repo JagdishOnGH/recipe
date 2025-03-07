@@ -9,12 +9,10 @@ import '../../../../di/getit_setup.dart';
 typedef PlaceHolderStringType = DataPlaceHolder<String>;
 
 class AuthenticationNotifier extends AsyncNotifier<PlaceHolderStringType> {
-  late final AuthRepository _authRepository;
+  AuthRepository _authRepository = sl<AuthRepository>();
 
   @override
   FutureOr<PlaceHolderStringType> build() {
-    _authRepository = sl<AuthRepository>();
-
     return future;
   }
 
@@ -22,7 +20,6 @@ class AuthenticationNotifier extends AsyncNotifier<PlaceHolderStringType> {
     state = AsyncLoading();
 
     state = await AsyncValue.guard(() async {
-      await Future.delayed(const Duration(seconds: 5));
       final String? localJwt = await _authRepository.loginStatus();
       return DataPlaceHolder(data: localJwt);
     });

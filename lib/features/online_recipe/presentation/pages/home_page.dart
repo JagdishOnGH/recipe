@@ -6,7 +6,6 @@ import 'package:recipe_app/extensions/on_num.dart';
 
 import '../../../../extensions/error_widget.dart';
 import '../../../../routes/auto_route_setup.gr.dart';
-import '../../../authentication/presentation/riverpod/authentication_rp.dart';
 import '../components/items_list_comp.dart';
 import '../components/suggested_cuisine_comp.dart';
 import '../riverpod/present_recipe_rp.dart';
@@ -20,7 +19,6 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final ts = Theme.of(context).textTheme;
     final recipeList = ref.watch(onlineRecipeAsyncProvider);
-    final watchAuthentication = ref.watch(authenticationAsyncStateProvider);
 
     return Scaffold(
         appBar: AppBar(

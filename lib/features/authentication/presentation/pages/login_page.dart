@@ -6,7 +6,6 @@ import 'package:recipe_app/extensions/on_num.dart';
 
 import '../../../../extensions/riverpod_builder.dart';
 import '../../../online_recipe/presentation/riverpod/present_recipe_rp.dart';
-import '../riverpod/authentication_rp.dart';
 
 final logger = Logger();
 
@@ -106,10 +105,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 50,
               child: RiverpodBuilder(builder: (context, ref) {
                 return FilledButton(
-                  onPressed: () {
-                    ref.read(authenticationAsyncStateProvider.notifier).login(
-                        _usernameController.text, _passwordController.text);
-                  },
+                  onPressed: () {},
                   child: const Text('Login'),
                 );
               }),

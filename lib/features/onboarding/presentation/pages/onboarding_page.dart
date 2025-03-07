@@ -13,23 +13,37 @@ class OnboardingPage extends ConsumerStatefulWidget {
 }
 
 class _OnboardingPageState extends ConsumerState<OnboardingPage> {
+  bool isDialogOpen = false;
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.refresh(authenticationProvider.notifier).localLogin();
+      ref.read(authenticationProvider.notifier).localLogin();
+      unSkipableLoading(context, "Checking Login Status");
+      isDialogOpen = true;
     });
     super.initState();
   }
 
-  bool isDialogOpen = false;
-
   @override
   Widget build(BuildContext context) {
     ref.listen(authenticationProvider, (then, now) {
-      print("IS LOADING: ${now.isLoading}");
+      print("Now is $now");
+      if (now is AsyncError && isDialogOpen) {
+        Navigator.of(context).pop();
+        isDialogOpen = false;
+      } else if (now is AsyncLoading && !isDialogOpen) {
+        unSkipableLoading(context, "Loading...");
+        isDialogOpen = true;
+      } else if (now is AsyncData && isDialogOpen) {
+        //snackbar -> Login Success
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("VALUE ${now.value}")));
+        Navigator.of(context).pop();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Already Logged in")));
+        isDialogOpen = false;
+        context.router.push(EntryPointRoute());
+      }
     }, onError: (err, st) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("ERR ${err}")));
@@ -37,8 +51,17 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
       print(err);
       print(st);
     });
+
     final theme = Theme.of(context);
     final ts = theme.textTheme;
+    final authState = ref.watch(authenticationProvider);
+    authState.when(data: (data) {
+      print("I got data");
+    }, error: (error, s) {
+      print("I got error");
+    }, loading: () {
+      print("I am loading");
+    });
     return Scaffold(
         body: Column(
       children: [
@@ -122,4 +145,24 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
       ],
     ));
   }
+}
+
+//unskipable loading with title and circular
+//unskipable loading with title and circular
+void unSkipableLoading(BuildContext context, String title) {
+  showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          content: Row(
+            spacing: 20,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              Text("$title"),
+            ],
+          ),
+        );
+      });
 }
