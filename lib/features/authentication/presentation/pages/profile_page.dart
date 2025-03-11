@@ -2,7 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/exceptions/app_global_exception.dart';
-import 'package:recipe_app/features/authentication/presentation/riverpod/profile_displayer_rp.dart';
+import 'package:recipe_app/features/authentication/presentation/providers/profile_displayer_rp.dart';
 
 import '../../../../extensions/error_widget.dart';
 import '../components/logout_comp.dart';
