@@ -21,4 +21,10 @@ class RecipeRepository {
     return await _recipeDatasource.searchRecipes(query,
         limit: limit, offset: offset);
   }
+
+  Future<RecipeList> vegRecipes(String query,
+      {int limit = 10, int offset = 1}) async {
+    return await _recipeDatasource.searchRecipes('$query',
+        limit: limit, offset: offset);
+  }
 }
