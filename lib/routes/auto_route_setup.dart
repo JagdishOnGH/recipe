@@ -20,13 +20,13 @@ class AutoRouteSetup extends RootStackRouter {
           path: "/home",
         ),
         AutoRoute(page: SearchRecipeRoute.page, path: "/search-recipe"),
+        AutoRoute(page: ForYouFullRoute.page, path: "/for-you"),
         AutoRoute(page: RecipeDetailRoute.page, path: "/recipe-detail"),
         AutoRoute(page: EntryPointRoute.page, path: "/entry-point", children: [
           AutoRoute(page: HomeRoute.page, path: "home", children: [
             AutoRoute(page: RecipeDetailRoute.page, path: "recipe-detail"),
           ]),
           AutoRoute(page: RecipeShimmerRoute.page, path: "recipe-shimmer"),
-          AutoRoute(page: HomeNRoute2.page, path: "home-n"),
           AutoRoute(page: OfflineShowRoute.page, path: "offline-show"),
           AutoRoute(page: ProfileRoute.page, path: "profile"),
         ]),
