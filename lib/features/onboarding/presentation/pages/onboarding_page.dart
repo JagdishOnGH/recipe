@@ -42,7 +42,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("Already Logged in")));
         isDialogOpen = false;
-        context.router.push(EntryPointRoute());
+        context.router.replace(EntryPointRoute());
       }
     }, onError: (err, st) {
       ScaffoldMessenger.of(context)
