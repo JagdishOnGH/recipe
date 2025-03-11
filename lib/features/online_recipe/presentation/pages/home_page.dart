@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/exceptions/app_global_exception.dart';
 import 'package:recipe_app/extensions/on_num.dart';
+import 'package:recipe_app/extensions/riverpod_builder.dart';
+import 'package:recipe_app/features/online_recipe/presentation/riverpod/veg_recipe_provider.dart';
 
 import '../../../../extensions/error_widget.dart';
 import '../../../../routes/auto_route_setup.gr.dart';
@@ -76,16 +78,22 @@ class HomePage extends ConsumerWidget {
                           const Spacer(),
                           Padding(
                             padding: const EdgeInsets.only(right: 1.0),
-                            child: Icon(
-                              Icons.arrow_forward,
-                              size: 25,
+                            child: InkWell(
+                              onTap: () {
+                                context.router
+                                    .push(ForYouFullRoute(recipeList: recipes));
+                              },
+                              child: Icon(
+                                Icons.arrow_forward,
+                                size: 25,
+                              ),
                             ),
                           )
                         ],
                       ),
                       10.ht,
                       SizedBox(
-                        height: 195,
+                        height: 190,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: recipes.recipes.take(5).length,
@@ -94,37 +102,66 @@ class HomePage extends ConsumerWidget {
                           },
                         ),
                       ),
-                      20.ht,
-                      // Row(
-                      //   children: [
-                      //     Text("Popular Recipes",
-                      //         style: ts.titleMedium?.copyWith(
-                      //             fontWeight: FontWeight.bold,
-                      //             color: Colors.black54,
-                      //             fontSize: 18)),
-                      //     const Spacer(),
-                      //     Padding(
-                      //       padding: const EdgeInsets.only(right: 1.0),
-                      //       child: Icon(
-                      //         Icons.arrow_forward,
-                      //         size: 25,
-                      //       ),
-                      //     )
-                      //   ],
-                      // ),
-                      10.ht,
-                      // SizedBox(
-                      //   height: 210,
-                      //   child: ListView(
-                      //     scrollDirection: Axis.horizontal,
-                      //     children: [
-                      //       ItemsComp(),
-                      //       ItemsComp(),
-                      //       ItemsComp(),
-                      //       ItemsComp(),
-                      //     ],
-                      //   ),
-                      // ),
+                      RiverpodBuilder(
+                        builder: (context, ref) {
+                          final greenRecipes = ref.watch(vegRecipeProvider);
+                          return greenRecipes.when(data: (gRecipes) {
+                            final myRecipes =
+                                gRecipes.recipes.reversed.toList();
+                            return Column(
+                              children: [
+                                20.ht,
+                                Row(
+                                  children: [
+                                    Text("Vegetarian Recipes 🟢 ",
+                                        style: ts.titleMedium?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black54,
+                                            fontSize: 18)),
+                                    const Spacer(),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 1.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          context.router.push(ForYouFullRoute(
+                                              title: "Vegetarian Recipes",
+                                              recipeList: gRecipes
+                                                ..recipes.reversed.toList()));
+                                        },
+                                        child: Icon(
+                                          Icons.arrow_forward,
+                                          size: 25,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                10.ht,
+                                SizedBox(
+                                  height: 190,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: myRecipes.take(5).length,
+                                    itemBuilder: (context, index) {
+                                      return ItemsComp(myRecipes[index]);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            );
+                          }, error: (error, st) {
+                            return CustomErrorWidget(
+                              message: (error as AppGlobalException).message,
+                              onRetry: () {
+                                ref.invalidate(vegRecipeProvider);
+                              },
+                            );
+                          }, loading: () {
+                            return RecipeShimmerPage();
+                          });
+                        },
+                      ),
                     ],
                   );
                 },
