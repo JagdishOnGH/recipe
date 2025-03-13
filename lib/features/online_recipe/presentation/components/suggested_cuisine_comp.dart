@@ -1,4 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../routes/auto_route_setup.gr.dart';
 
 class SuggestedCuisineComp extends StatelessWidget {
   final List<String> suggestedCuisine;
@@ -35,18 +38,23 @@ class SuggestedCuisineComp extends StatelessWidget {
               borderRadius: BorderRadius.circular(10)),
           height: 60,
           width: 180,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 7, vertical: 2),
-            decoration: BoxDecoration(
-              color: Colors.deepOrange.withValues(alpha: 0.7),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Text(
-              "$e",
-              style: ts.titleMedium?.copyWith(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+          child: InkWell(
+            onTap: () {
+              context.router.push(AllCuisineRoute(cuisineName: e));
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.deepOrange.withValues(alpha: 0.7),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                "$e",
+                style: ts.titleMedium?.copyWith(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         );
